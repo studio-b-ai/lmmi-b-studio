@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio b. LMMI — The Lower Middle Market Direct Lending Index.</title>
+  <meta name="description" content="Studio b. LMMI — the open index for lower middle market direct lending. Quarterly spread, structure, and recovery data across the global LMM.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Studio b. LMMI">
+  <meta property="og:title" content="The Lower Middle Market Direct Lending Index.">
+  <meta property="og:description" content="Studio b. LMMI — the open index for lower middle market direct lending. Quarterly spread, structure, and recovery data.">
+  <meta property="og:url" content="https://lmmi.b.studio">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,900;1,9..144,900&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --paper: #F4F1EB;
+      --ink: #0D0D0D;
+      --forest: #1A3328;
+      --vermillion: #D94425;
+      --yolk: #F7D344;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; min-height: 100vh; }
+
+    .stripe { height: 6px; width: 100%; background: repeating-linear-gradient(-45deg, var(--forest) 0, var(--forest) 8px, var(--paper) 8px, var(--paper) 16px); }
+
+    .nav { padding: 1.25rem 4rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(26,51,40,0.1); }
+    .bmark { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.6rem; color: var(--forest); text-decoration: none; letter-spacing: -0.04em; line-height: 1; }
+    .bmark .dot { color: var(--vermillion); }
+    .nav-right { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-link { font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(26,51,40,0.4); text-decoration: none; transition: color 0.12s; padding: 0.5rem; }
+    .nav-link:hover { color: var(--forest); }
+    .brand-b { text-transform: none; }
+    .brand-dot { color: var(--vermillion); }
+
+    .hero { padding: 6rem 4rem 5rem; max-width: 1100px; }
+    .firm-label { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(26,51,40,0.5); margin-bottom: 2rem; }
+    .firm-label a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(26,51,40,0.25); transition: color 0.12s, border-color 0.12s; }
+    .firm-label a:hover { color: var(--forest); border-bottom-color: var(--forest); }
+    h1 { font-family: 'Fraunces', serif; font-weight: 900; font-style: italic; font-size: clamp(2.8rem, 5.5vw, 5rem); line-height: 0.95; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 1.75rem; max-width: 16ch; }
+    h1 em { color: var(--forest); }
+    .hero-body { font-size: 1.05rem; line-height: 1.65; color: rgba(13,13,13,0.7); max-width: 580px; }
+
+    /* Ticker — same component as benchmarks.b.studio */
+    .ticker { background: var(--forest); color: var(--paper); padding: 0 4rem; }
+    .ticker-line { display: flex; align-items: center; padding: 0.6rem 0; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; flex-wrap: wrap; }
+    .ticker-sep { margin: 0 0.65rem; opacity: 0.4; }
+    .ticker-label { opacity: 0.6; font-weight: 500; }
+    .ticker-tag { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(247,211,68,0.7); }
+    .ticker-foot { font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; letter-spacing: 0.04em; color: rgba(244,241,235,0.4); padding: 0 0 0.55rem; line-height: 1.7; }
+
+    .subscribe { padding: 4rem; background: #FFFFFF; border-top: 3px solid var(--forest); border-bottom: 3px solid var(--forest); position: relative; }
+    .subscribe::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, var(--forest) 0, var(--forest) 3px, transparent 3px, transparent 18px); opacity: 0.04; pointer-events: none; }
+    .subscribe-inner { max-width: 640px; position: relative; }
+    .subscribe-kicker { font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(26,51,40,0.45); margin-bottom: 1rem; }
+    .subscribe-headline { font-family: 'Fraunces', serif; font-weight: 900; font-style: italic; font-size: clamp(1.6rem, 3vw, 2.25rem); line-height: 1.05; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1rem; }
+    .subscribe-body { font-size: 0.92rem; line-height: 1.65; color: rgba(13,13,13,0.7); margin-bottom: 1.5rem; }
+
+    .why { padding: 4rem; background: var(--forest); color: var(--paper); }
+    .why-inner { max-width: 760px; }
+    .why-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,241,235,0.5); margin-bottom: 1.25rem; }
+    .why h2 { font-family: 'Fraunces', serif; font-weight: 900; font-style: italic; font-size: clamp(1.8rem, 3.5vw, 2.6rem); line-height: 1.05; letter-spacing: -0.02em; color: var(--paper); margin-bottom: 1.5rem; }
+    .why p { font-size: 1rem; line-height: 1.7; color: rgba(244,241,235,0.8); margin-bottom: 1rem; }
+    .why p:last-child { margin-bottom: 0; }
+    .why em { font-style: italic; color: var(--yolk); }
+    .archive { padding: 4rem; }
+    .section-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(26,51,40,0.4); margin-bottom: 2rem; }
+    .archive-empty { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.4rem; color: rgba(13,13,13,0.7); margin-bottom: 1rem; }
+    .archive-empty-body { font-size: 0.92rem; line-height: 1.65; color: rgba(13,13,13,0.55); max-width: 540px; }
+
+    footer { padding: 3rem 4rem 2rem; border-top: 1px solid rgba(26,51,40,0.1); display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; }
+    .footer-col h4 { font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(26,51,40,0.4); margin-bottom: 0.75rem; }
+    .footer-col a { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; color: rgba(13,13,13,0.6); text-decoration: none; padding: 0.25rem 0; transition: color 0.12s; }
+    .footer-col a:hover { color: var(--forest); }
+    .footer-bottom { padding: 1.25rem 4rem 2rem; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(13,13,13,0.3); }
+
+    @media (max-width: 768px) {
+      .nav, .ticker { padding: 1rem 1.5rem; }
+      .hero { padding: 4rem 1.5rem 3rem; }
+      .subscribe, .archive { padding: 3rem 1.5rem; }
+      footer { grid-template-columns: 1fr; padding: 3rem 1.5rem 1.5rem; }
+      .footer-bottom { padding: 1rem 1.5rem 2rem; flex-direction: column; gap: 0.75rem; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="stripe"></div>
+
+<nav class="nav">
+  <a href="/" class="bmark">b<span class="dot">.</span></a>
+  <div class="nav-right">
+    <a href="https://b.studio" class="nav-link">← b<span class="brand-dot">.</span>studio</a>
+    <a href="#why" class="nav-link">Why</a>
+    <a href="#archive" class="nav-link">Archive</a>
+    <a href="#subscribe" class="nav-link">Subscribe →</a>
+  </div>
+</nav>
+
+<div class="ticker" id="dli-ticker">
+  <div class="ticker-line">
+    <span>LMMI</span>
+    <span class="ticker-sep">·</span>
+    <span class="dli-period">Q1 2025</span>
+    <span class="ticker-sep">·</span>
+    <span><span class="ticker-label">US LMM Spread</span>&nbsp;<span class="dli-spread">625 bps</span></span>
+    <span class="ticker-sep dli-recovery-sep">·</span>
+    <span class="dli-metric-uk"><span class="ticker-label">UK LMM Recovery</span>&nbsp;<span class="dli-recovery">78%</span></span>
+    <span class="ticker-tag">Live index</span>
+  </div>
+  <div class="ticker-foot">
+    Spread — asset-weighted yield over 3M SOFR, current quarter, eligible LMM BDC universe. &nbsp;&nbsp;
+    Recovery — vintage anchor: Companies House LMM workouts initiated 2018–2022 with realized outcome.
+  </div>
+</div>
+
+<section class="hero">
+  <p class="firm-label">Studio <span class="brand-b">b<span class="brand-dot">.</span></span> LMMI · Lower Middle Market Direct Lending Index</p>
+  <h1>The only open index for the lower <em>middle market.</em></h1>
+  <p class="hero-body">Quarterly spread, structure, and recovery data across the global lower middle market — sourced from SBA 7(a), Companies House workouts, and the LMM-eligible BDC universe. Market event commentary as it happens. We publish it because the benchmarks didn't exist — and LPs deserve the data before they commit capital.</p>
+</section>
+
+<section class="why" id="why">
+  <div class="why-inner">
+    <p class="why-eyebrow">Why we built this</p>
+    <h2>The benchmarks didn't exist.</h2>
+    <p>Lower middle market direct lending is the largest under-benchmarked corner of credit. The big indices track upper-middle and broadly syndicated — Cliffwater's CDLI is filtered to the BDC universe, which is structurally upper-middle. The data sources LPs use to underwrite LMM allocators are surveys, self-reports, and selective marks. Every layer between the deal and the LP filters out the inconvenient.</p>
+    <p>So we built the index we wished existed: <em>quarterly spread, structure, and recovery data</em> sourced from SBA 7(a), Companies House workouts, and the LMM-eligible universe. Methodology is open. Universe is documented. Nothing is paid-promoted.</p>
+    <p>Read the data free. Subscribers get the methodology, the universe construction notes, and market-event commentary as it happens. Accredited LPs interested in the fund can <a href="https://invest.b.studio">request the deck</a>.</p>
+  </div>
+</section>
+
+<section class="subscribe" id="subscribe">
+  <div class="subscribe-inner">
+    <div class="subscribe-kicker">Subscribe — free</div>
+    <h2 class="subscribe-headline">Get the index when it updates. Plus market events as they happen.</h2>
+    <p class="subscribe-body">Studio b. LMMI publishes quarterly with the index update. Between quarters, you'll hear from us when a market event reshapes the picture — not on a calendar.</p>
+    <div class="embed-wrap">
+      <iframe src="https://embeds.beehiiv.com/pub_e647b558-3a6e-4a29-87ff-c5fd2b566c35?slim=true" data-test-id="beehiiv-embed" height="52" frameborder="0" scrolling="no" style="margin: 0; border-radius: 0px !important; background-color: transparent; width: 100%;"></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="archive" id="archive">
+  <p class="section-eyebrow">Archive</p>
+  <p class="archive-empty">Q1 2026 issue — in production.</p>
+  <p class="archive-empty-body">Studio b. LMMI is repositioning. Subscribe above to get the next index issue when it ships, and the live ticker above will reflect every quarterly update.</p>
+</section>
+
+<footer>
+  <div class="footer-col">
+    <h4>Studio <span class="brand-b">b<span class="brand-dot">.</span></span> LMMI</h4>
+    <a href="#subscribe">Subscribe</a>
+    <a href="#why">Why we built this</a>
+    <a href="#archive">Archive</a>
+  </div>
+  <div class="footer-col">
+    <h4>Other newsletter</h4>
+    <a href="https://markdown.b.studio">Markdown, by Studio <span class="brand-b">b<span class="brand-dot">.</span></span></a>
+  </div>
+  <div class="footer-col">
+    <h4>Studio <span class="brand-b">b<span class="brand-dot">.</span></span></h4>
+    <a href="https://b.studio">b<span class="brand-dot">.</span>studio</a>
+    <a href="mailto:invest@b.studio">invest@b<span class="brand-dot">.</span>studio</a>
+    <a href="mailto:hello@b.studio">hello@b<span class="brand-dot">.</span>studio</a>
+  </div>
+</footer>
+
+<div class="footer-bottom">
+  <span>Studio <span class="brand-b">b<span class="brand-dot">.</span></span> LMMI · Published by Kevin Bibelhausen</span>
+  <span>&copy; 2026 Studio <span class="brand-b">b<span class="brand-dot">.</span></span> Consulting, LLC</span>
+</div>
+
+<script>
+(function() {
+  var FALLBACK = { period: 'Q1 2025', us_spread_bps: 625, uk_recovery_pct: 78 };
+  var DLI_API = 'https://studiob-api-production-2df4.up.railway.app/api/dli/latest';
+  function render(d) {
+    var t = document.getElementById('dli-ticker');
+    if (!t) return;
+    var period = t.querySelector('.dli-period');
+    var spread = t.querySelector('.dli-spread');
+    var recovery = t.querySelector('.dli-recovery');
+    var recoveryMetric = t.querySelector('.dli-metric-uk');
+    var recoverySep = t.querySelector('.dli-recovery-sep');
+    if (period) period.textContent = d.period;
+    if (spread) spread.textContent = d.us_spread_bps + ' bps';
+    if (d.uk_recovery_pct != null) {
+      if (recovery) recovery.textContent = d.uk_recovery_pct + '%';
+    } else {
+      if (recoveryMetric) recoveryMetric.style.display = 'none';
+      if (recoverySep) recoverySep.style.display = 'none';
+    }
+  }
+  render(FALLBACK);
+  if (typeof fetch !== 'undefined') {
+    var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function(){ ctrl.abort(); }, 3000) : null;
+    fetch(DLI_API, ctrl ? {signal: ctrl.signal} : {})
+      .then(function(r){ if (r.ok) return r.json(); throw new Error('non-ok'); })
+      .then(function(d){ clearTimeout(timer); render(d); })
+      .catch(function(){ clearTimeout(timer); });
+  }
+})();
+</script>
+
+</body>
+</html>
