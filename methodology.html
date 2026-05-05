@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Methodology — Studio b. LMMI</title>
-  <meta name="description" content="Studio b. LMMI methodology v0.1 — open construction rules, universe definition, classification method, validation, governance, and reproducibility for the Lower Middle Market Direct Lending Index.">
+  <meta name="description" content="Studio b. LMMI methodology v0.1.1 — open construction rules, universe definition, multi-anchor architecture, classification method, validation, governance, and reproducibility for the Lower Middle Market Direct Lending Index.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Studio b. LMMI">
-  <meta property="og:title" content="Methodology v0.1 — Studio b. LMMI">
+  <meta property="og:title" content="Methodology v0.1.1 — Studio b. LMMI">
   <meta property="og:description" content="Open construction rules for the Lower Middle Market Direct Lending Index. Source Serif 4. Published by Benchmarks, by Studio b. LLC.">
   <meta property="og:url" content="https://lmmi.b.studio/methodology">
   <meta name="twitter:card" content="summary_large_image">
@@ -449,9 +449,9 @@
 <div class="version-banner">
   <span>Methodology</span>
   <span class="vb-sep">·</span>
-  <span class="vb-version">v0.1</span>
+  <span class="vb-version">v0.1.1</span>
   <span class="vb-sep">·</span>
-  <span>Last revised 2026-05-04</span>
+  <span>Last revised 2026-05-05</span>
   <span class="vb-sep">·</span>
   <a href="#s09" class="vb-link">Changelog →</a>
 </div>
@@ -462,9 +462,9 @@
   <header class="article-header">
     <p class="article-kicker">Studio b. LMMI &nbsp;·&nbsp; Open Methodology</p>
     <h1 class="article-title">Methodology</h1>
-    <p class="article-sub">Studio b. Lower Middle Market Direct Lending Index — version 0.1</p>
+    <p class="article-sub">Studio b. Lower Middle Market Direct Lending Index — version 0.1.1</p>
     <div class="article-meta">
-      <span class="article-meta-item">Version <span class="vm">·</span> v0.1</span>
+      <span class="article-meta-item">Version <span class="vm">·</span> v0.1.1</span>
       <span class="article-meta-sep">·</span>
       <span class="article-meta-item">2026-05-04</span>
       <span class="article-meta-sep">·</span>
@@ -486,20 +486,24 @@
     <span class="sec-eyebrow">§01 · Why the Index Exists</span>
     <h2>Why the Index Exists</h2>
 
-    <p>Direct lending to U.S. lower middle market companies is a large and growing asset class. The publicly-registered Business Development Company universe alone holds an estimated $90–110 billion in LMM-classified fair-value assets. That number is not tracked by any freely-accessible benchmark.</p>
+    <p>There is a segment of the U.S. private credit market that no publicly-accessible benchmark has ever measured directly: companies with $5–25M EBITDA — too large for the SBA's small-business programs, too small for Business Development Companies that target the upper lower middle market. This is the segment where Capital, by Studio b. invests, and where Studio b.'s alpha thesis lives. It is also, by any empirical measure, the segment with the fewest credible lenders, the least price discovery, and the most durable spread premium.</p>
 
-    <p>The closest peer is the Cliffwater Direct Lending Index Lower Middle Market (CDLI-LMM), which Cliffwater <a href="https://www.cliffwaterdirectlendingindex.com/files/cdli/docs/CDLI_Fact_Page.pdf">defines</a> as BDCs whose borrowers average less than $40M EBITDA. CDLI-LMM launched in September 2024 with performance history back to September 2019. It is the institutional benchmark for the segment. It is also subscription-only, US-only, and BDC-universe only.</p>
+    <p>Studio b. LMMI exists to model this segment. It is a <strong>multi-anchor interpolated index</strong>, not a direct-observation index. No single public data source covers the $5–25M EBITDA band. The index synthesizes it from two boundary observations — the SBA 7(a) program (small-end, sub-$5M) and the publicly-registered BDC universe (upper-LMM, $25–100M) — plus a cross-jurisdictional recovery anchor from UK Companies House workout records. The interpolated middle, derived from those anchors, is the headline LMMI series. The model is the product.</p>
 
-    <p>The Studio b. LMMI is differentiated on two things, not on coverage gap:</p>
+    <p><strong>Architecture overview — three anchors, one modeled middle:</strong></p>
 
     <ol>
-      <li><strong>Open methodology and open print.</strong> The construction rules, weighting math, calibration scope, and data lineage are published on this page. The quarterly index value lands in subscriber inboxes free. CDLI's full methodology document and quarterly print sit behind a subscription gate.</li>
-      <li><strong>Coverage extends beyond the BDC universe.</strong> SBA 7(a) loan data captures sub-BDC origination volume; UK Companies House workout records anchor cross-jurisdictional recovery rates. CDLI-LMM is BDC-only and US-only by its own scope.</li>
+      <li><strong>Lower anchor — SBA 7(a) data.</strong> Sub-$5M EBITDA borrowers. Public, free, US-only. Captures the floor of small-end LMM credit, including charge-off curves, sector distribution, and vintage-cohort default behavior. <em>Implementation pending v0.x.</em></li>
+      <li><strong>Upper anchor — BDC universe.</strong> $25–100M EBITDA borrowers (what BDCs actually lend to). Public, free, US-only. Captures the observable ceiling of LMM direct lending through SEC-registered fund filings. <em>This is what v0.1 implements today.</em></li>
+      <li><strong>Cross-jurisdictional recovery anchor — UK Companies House workouts.</strong> Sample-based, partial coverage. Provides a cross-jurisdictional stress reference for LGD estimation that US-only sources cannot supply. <em>Implementation pending v0.x.</em></li>
+      <li><strong>The modeled middle — $5–25M EBITDA.</strong> This is the headline LMMI value. Interpolated from the three anchors above. The interpolation model is the core intellectual property of the index; it synthesizes a series that cannot be directly observed in any single public source. <em>Implementation pending v0.x. v0.1 publishes only the BDC anchor — no interpolation yet.</em></li>
     </ol>
 
-    <p>On segment definition, the Studio b. LMMI classifies holdings against an EBITDA boundary of $50M using a three-layer Bayesian ensemble (see §02). CDLI-LMM uses a $40M average-borrower test. Whether the Studio b. LMMI should adopt CDLI-LMM's $40M boundary for direct apples-to-apples comparability — and whether to align on classification rule (mandate-language vs portfolio-average) — is an open methodology question under investigation. Concordance with CDLI-LMM (currently 80%, see §06) is the binding metric: any change must improve concordance, not regress it.</p>
+    <p><strong>What this version delivers.</strong> v0.1 is the BDC anchor: the observable upper band of LMM direct lending, measured quarterly from public BDC filings. It is honest about what it is — a foundation, not a complete index. The complete multi-anchor index, with the $5–25M modeled middle as its headline series, ships in v0.x revisions as the SBA and Companies House anchors come online.</p>
 
-    <p>The Studio b. LMMI is not in competition with CDLI-LMM on the segment they share. It is a different access model on a partially-overlapping universe.</p>
+    <p><strong>On CDLI-LMM.</strong> The Cliffwater Direct Lending Index Lower Middle Market is the institutional benchmark for the BDC-observable segment. CDLI-LMM observes what BDCs disclose, full stop — it is a direct-observation index of the upper LMM band, and a rigorous one. Studio b. LMMI uses CDLI-LMM as a reference input to the upper anchor, not as a competitor. They are different products: CDLI-LMM observes the BDC universe; Studio b. LMMI models the segment below it. Concordance with CDLI-LMM (currently 80% on the BDC-anchor classification, see §06) validates the anchor's accuracy.</p>
+
+    <p><strong>On openness.</strong> The methodology is open. Every version publishes its construction rules, weighting math, calibration scope, and data lineage on this page. The index evolves transparently in public: each version adds anchors, refines the model, and documents what changed and why. The open methodology is how the index earns the right to be used in LP diligence and fund comparison.</p>
   </section>
 
   <!-- §02 -->
@@ -507,7 +511,13 @@
     <span class="sec-eyebrow">§02 · Universe Construction</span>
     <h2>Universe Construction</h2>
 
-    <p>The index universe consists of Business Development Companies registered under §54 of the Investment Company Act of 1940 that file Schedules of Investments with the SEC via 10-K and 10-Q filings.</p>
+    <p>Studio b. LMMI is built from multiple data anchors, each covering a distinct segment of the LMM credit market. v0.1 implements the BDC anchor only. Subsequent versions add the remaining anchors and the interpolation model that synthesizes them into the headline LMMI series.</p>
+
+    <hr class="section-rule">
+
+    <p><strong>§02a · BDC Anchor — Upper Band ($25–100M EBITDA)</strong> &nbsp;<code>v0.1 — implemented</code></p>
+
+    <p>The BDC anchor consists of Business Development Companies registered under §54 of the Investment Company Act of 1940 that file Schedules of Investments with the SEC via 10-K and 10-Q filings.</p>
 
     <p><strong>Eligibility criteria for a given quarter:</strong></p>
 
@@ -522,7 +532,27 @@
 
     <p><strong>Current universe (v0.1):</strong> 10 adapters — ARCC, GBDC, MAIN, PSEC, FSK, HTGC, PRSP, TCRD, BXSL, OBDE — covering approximately 85% of public BDC AUM by fair value. Full universe expansion to 30+ BDCs is planned for v0.x. The specific adapters, their mandate classifications, and their source filing accession numbers are documented in Appendix B of the v0.1 methodology paper.</p>
 
-    <p><strong>What the universe does not include:</strong> private BDCs, insurance-company-affiliated direct lenders, CLOs, separately managed accounts, or any fund not subject to SEC filing requirements. The Studio b. LMMI does not claim to represent all LMM direct lending activity — only the subset visible through public BDC filings.</p>
+    <p><strong>What the BDC anchor does not include:</strong> private BDCs, insurance-company-affiliated direct lenders, CLOs, separately managed accounts, or any fund not subject to SEC filing requirements. The BDC anchor represents the observable upper band of LMM direct lending — it is not a claim about total LMM credit activity.</p>
+
+    <hr class="section-rule">
+
+    <p><strong>§02b · SBA 7(a) Anchor — Lower Band (sub-$5M EBITDA)</strong> &nbsp;<code>implementation pending v0.x</code></p>
+
+    <p>The SBA 7(a) FOIA loan microdata provides the lower boundary observation for the LMMI model. It captures the floor of US small-business credit: origination volume, charge-off curves, sector distribution, and vintage-cohort default behavior for companies well below the BDC universe's borrower profile. The SBA anchor serves two roles in the eventual interpolation model: (1) constraining the lower terminus of the $5–25M modeled-middle series, and (2) providing the pre-2010 synthetic calibration signal used in the horizon extension (§05). The live lower-anchor computation — integrating SBA data as a formal index anchor rather than a calibration reference — is pending implementation in a v0.x revision.</p>
+
+    <hr class="section-rule">
+
+    <p><strong>§02c · UK Companies House Recovery Anchor</strong> &nbsp;<code>implementation pending v0.x</code></p>
+
+    <p>UK Companies House administration and liquidation records provide a cross-jurisdictional stress reference for LGD estimation. US-only public sources (BDC filings, SBA data) cannot supply a direct LGD observation for the $5–25M EBITDA segment; the Companies House workout database — covering a structurally comparable small-to-mid-market lending segment in a jurisdiction with robust filing requirements — provides a partial but useful cross-check. Sample coverage is incomplete by design: the anchor is a calibration reference, not a full universe. Implementation pending v0.x.</p>
+
+    <hr class="section-rule">
+
+    <p><strong>§02d · The Modeled Middle — $5–25M EBITDA</strong> &nbsp;<code>implementation pending v0.x</code></p>
+
+    <p>The headline LMMI series is the interpolated middle segment: $5–25M EBITDA borrowers, between the SBA-visible lower band and the BDC-visible upper band. No single public data source observes this segment directly. The modeled middle is derived from the three anchors above via an interpolation model that synthesizes the boundary observations into an estimated credit-conditions series for the unobservable interior.</p>
+
+    <p>The interpolation model is the core intellectual property of Studio b. LMMI. Its architecture — functional form, anchor weighting, calibration methodology, and uncertainty quantification — will be published in full when the model ships in v0.x. Until then, v0.1 publishes the BDC anchor only, with this section reserved for the interpolation design.</p>
   </section>
 
   <!-- §03 -->
@@ -589,7 +619,9 @@
     <span class="sec-eyebrow">§04 · Construction Rules</span>
     <h2>Construction Rules</h2>
 
-    <p><strong>Classification method:</strong> Each holding in each BDC's Schedule of Investments is classified as LMM or UMM (upper middle market) using a three-layer Bayesian ensemble. The output of each layer is a posterior probability <code>p_lmm</code> in [0, 1]. The LMM/UMM boundary is EBITDA $50M.</p>
+    <p>This section describes the v0.1 BDC-anchor computation. The middle-interpolation model — the logic that synthesizes the $5–25M EBITDA headline series from the three anchors — ships in a v0.x revision and will be documented here when it does.</p>
+
+    <p><strong>BDC-anchor classification method:</strong> Each holding in each BDC's Schedule of Investments is classified as LMM or UMM (upper middle market) using a three-layer Bayesian ensemble. The output of each layer is a posterior probability <code>p_lmm</code> in [0, 1]. The BDC-anchor LMM/UMM boundary is EBITDA $50M — this boundary applies to the observable BDC universe classification, not to the eventual modeled-middle index scope.</p>
 
     <p><strong>Layer 1 — BDC mandate prior.</strong> Each BDC is assigned a mandate class from a curated reading of its most recent 10-K investment objective language: <code>lmm_pure</code> (EBITDA upper bound ≤ $50M stated), <code>umm_pure</code> (EBITDA lower bound ≥ $75M stated), or <code>mixed</code>. Prior probabilities: <code>lmm_pure</code> → 0.95, <code>umm_pure</code> → 0.05, <code>mixed</code> → 0.50. The 5% residual on <code>lmm_pure</code> accounts for hold-duration drift and opportunistic UMM investments. Curation is documented in <code>wdli_mandate_prior_seed.csv</code> with source filing accession numbers.</p>
 
@@ -722,12 +754,24 @@
     <span class="sec-eyebrow">§09 · Changelog</span>
     <h2>Changelog</h2>
 
+    <p class="changelog-version">v0.1.1 &nbsp;·&nbsp; 2026-05-05 &nbsp;·&nbsp; Documentation patch — multi-anchor architecture clarified</p>
+
+    <ul>
+      <li>Reframed §01–§04 to reflect Studio b. LMMI's multi-anchor + modeled-middle architecture</li>
+      <li>v0.1 implements only the BDC anchor (upper band, $25–100M EBITDA observable); the SBA 7(a) anchor (lower band), UK Companies House anchor (cross-jurisdictional recovery), and the modeled-middle interpolation ($5–25M EBITDA — the alpha segment Capital, by Studio b. invests in) ship in subsequent v0.x revisions</li>
+      <li>No code changes — documentation only. The v0.1 BDC-anchor methodology in <code>wasala/wasala/wdli/</code> is unchanged</li>
+      <li>CDLI-LMM repositioned from "peer benchmark" to "observational input to the upper anchor" — different product category, not a competitor</li>
+      <li>§02 restructured into four sub-sections (§02a BDC anchor, §02b SBA anchor, §02c Companies House anchor, §02d modeled middle) with implementation status flags</li>
+      <li>§04 prefaced to clarify that the Bayesian classification logic is BDC-anchor computation; middle interpolation is pending v0.x</li>
+      <li>Per §07 version-bump policy: documentation clarifications that do not change methodology or outputs increment patch version</li>
+    </ul>
+
     <p class="changelog-version">v0.1 &nbsp;·&nbsp; 2026-05-04 &nbsp;·&nbsp; Initial publication</p>
 
     <ul>
       <li>Open methodology paper published at <code>lmmi.b.studio/methodology</code></li>
       <li>8 sections covering universe construction (§02), data sources (§03), three-layer Bayesian classification (§04), horizon disclosure (§05), validation gates (§06), governance and versioning (§07), and reproducibility/access (§08)</li>
-      <li>LMM/UMM boundary set at $50M EBITDA via Bayesian ensemble</li>
+      <li>BDC-anchor LMM/UMM classification boundary set at $50M EBITDA via Bayesian ensemble</li>
       <li>10 BDC adapters in v0.1 universe (ARCC, GBDC, MAIN, PSEC, FSK, HTGC, PRSP, TCRD, BXSL, OBDE), covering approximately 85% of public BDC AUM</li>
       <li>Live observation window 2006–2025 (19 years); pre-2010 model-implied synthetic extension disclosed per §05</li>
       <li>IOSCO self-attestation P1, P3, P4, P7, P8, P10–P12 documented</li>
@@ -741,7 +785,7 @@
     <div class="article-footer-strip">
       Methodology designed by Kevin Bibelhausen <span class="vm">·</span> Published by Benchmarks, by Studio b<span class="vm">.</span> LLC
       <br>
-      Version 0.1 <span class="vm">·</span> 2026-05-04 <span class="vm">·</span> lmmi<span class="vm">.</span>b<span class="vm">.</span>studio <span class="vm">·</span> Open <span class="vm">·</span> Free
+      Version 0.1.1 <span class="vm">·</span> 2026-05-05 <span class="vm">·</span> lmmi<span class="vm">.</span>b<span class="vm">.</span>studio <span class="vm">·</span> Open <span class="vm">·</span> Free
     </div>
     <a href="/" class="article-footer-back">← Back to Studio b. LMMI</a>
   </div>
@@ -749,7 +793,7 @@
 </div><!-- /article-wrap -->
 
 <div class="page-footer-strip">
-  <span>Studio b<span class="footer-vm">.</span> LMMI &nbsp;·&nbsp; lmmi<span class="footer-vm">.</span>b<span class="footer-vm">.</span>studio &nbsp;·&nbsp; Methodology v0.1 &nbsp;·&nbsp; Open &nbsp;·&nbsp; Free</span>
+  <span>Studio b<span class="footer-vm">.</span> LMMI &nbsp;·&nbsp; lmmi<span class="footer-vm">.</span>b<span class="footer-vm">.</span>studio &nbsp;·&nbsp; Methodology v0.1.1 &nbsp;·&nbsp; Open &nbsp;·&nbsp; Free</span>
   <span>&copy; 2026 Benchmarks, by Studio b<span class="footer-vm">.</span> LLC</span>
 </div>
 
