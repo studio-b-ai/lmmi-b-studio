@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Methodology — Studio b. LMMI</title>
-  <meta name="description" content="Studio b. LMMI methodology v0.1.1 — open construction rules, universe definition, multi-anchor architecture, classification method, validation, governance, and reproducibility for the Lower Middle Market Direct Lending Index.">
+  <meta name="description" content="Studio b. LMMI methodology v0.1.2 — open construction rules, universe definition, multi-anchor architecture, classification method, validation, governance, and reproducibility for the Lower Middle Market Direct Lending Index.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Studio b. LMMI">
-  <meta property="og:title" content="Methodology v0.1.1 — Studio b. LMMI">
+  <meta property="og:title" content="Methodology v0.1.2 — Studio b. LMMI">
   <meta property="og:description" content="Open construction rules for the Lower Middle Market Direct Lending Index. Source Serif 4. Published by Benchmarks, by Studio b. LLC.">
   <meta property="og:url" content="https://lmmi.b.studio/methodology">
   <meta name="twitter:card" content="summary_large_image">
@@ -449,7 +449,7 @@
 <div class="version-banner">
   <span>Methodology</span>
   <span class="vb-sep">·</span>
-  <span class="vb-version">v0.1.1</span>
+  <span class="vb-version">v0.1.2</span>
   <span class="vb-sep">·</span>
   <span>Last revised 2026-05-05</span>
   <span class="vb-sep">·</span>
@@ -462,9 +462,9 @@
   <header class="article-header">
     <p class="article-kicker">Studio b. LMMI &nbsp;·&nbsp; Open Methodology</p>
     <h1 class="article-title">Methodology</h1>
-    <p class="article-sub">Studio b. Lower Middle Market Direct Lending Index — version 0.1.1</p>
+    <p class="article-sub">Studio b. Lower Middle Market Direct Lending Index — version 0.1.2</p>
     <div class="article-meta">
-      <span class="article-meta-item">Version <span class="vm">·</span> v0.1.1</span>
+      <span class="article-meta-item">Version <span class="vm">·</span> v0.1.2</span>
       <span class="article-meta-sep">·</span>
       <span class="article-meta-item">2026-05-04</span>
       <span class="article-meta-sep">·</span>
@@ -500,6 +500,8 @@
     </ol>
 
     <p><strong>What this version delivers.</strong> v0.1 is the BDC anchor: the observable upper band of LMM direct lending, measured quarterly from public BDC filings. It is honest about what it is — a foundation, not a complete index. The complete multi-anchor index, with the $5–25M modeled middle as its headline series, ships in v0.x revisions as the SBA and Companies House anchors come online.</p>
+
+    <p><strong>The model and the fund.</strong> The Studio b. LMMI is not a passive observation index. It is the live methodology that underwrites Studio b.'s investment strategy in the same segment. The methodology is open because the decision logic has to be auditable: every version of the model is published, every revision is changelogged, every material change is footnoted. Verified accredited investors access a backtester that runs the same model — they apply their own assumptions to historical outputs and see what the strategy would have returned. The model evolves; the strategy retunes; the backtester reflects the current state. The methodology is the marketing because it is the strategy.</p>
 
     <p><strong>On CDLI-LMM.</strong> The Cliffwater Direct Lending Index Lower Middle Market is the institutional benchmark for the BDC-observable segment. CDLI-LMM observes what BDCs disclose, full stop — it is a direct-observation index of the upper LMM band, and a rigorous one. Studio b. LMMI uses CDLI-LMM as a reference input to the upper anchor, not as a competitor. They are different products: CDLI-LMM observes the BDC universe; Studio b. LMMI models the segment below it. Concordance with CDLI-LMM (currently 80% on the BDC-anchor classification, see §06) validates the anchor's accuracy.</p>
 
@@ -744,6 +746,16 @@
       <li>Access gated by Rule 506(c) self-attestation at <a href="https://invest.b.studio">invest.b.studio</a></li>
     </ul>
 
+    <p><strong>How the model tunes the fund.</strong></p>
+
+    <p>Studio b. operates a fund — Studio b. LMM Bridge Fund I — that invests in the same $5–25M EBITDA segment the LMMI models. The fund's flagship product structure is itself a model output: parameters chosen because the model's analysis of segment behavior shows where structural alpha exists. As the model evolves across versions — adding anchors, refining interpolation, tightening confidence intervals — the strategy retunes. The published methodology IS the audit trail of those decisions.</p>
+
+    <p>This is what makes the open-methodology promise load-bearing. An LP underwriting Studio b. LMM Bridge Fund I can verify the model that designs the strategy. A non-LP subscriber can read the same methodology and run the same backtester (subject to accreditation gating). The strategy is not opaque; the model that produces it is the open product.</p>
+
+    <p>Specific fund parameters — interest rate, term length, conversion structure, valuation floor — are set during fund formation and disclosed in the offering documents. They are downstream of the model's segment analysis. Future fund vintages may set different parameters as the model's confidence intervals tighten and segment characterization improves. Each set of parameters is an instance of the model's output at a point in time.</p>
+
+    <hr class="section-rule">
+
     <p>The wasala dbt project (the Studio b. LMMI's full source code) is privately held pending external IOSCO audit, targeted Q1 2027. Replication scripts for all public ingest sources — SEC EDGAR, SBA 7(a), UK Companies House — are available on request at <a href="mailto:invest@b.studio">invest@b.studio</a>. Every quarterly publication is independently reproducible from public source files given the <code>methodology_version</code>, <code>git_sha</code>, and <code>ingest_run_ids</code> recorded in that quarter's <code>lineage.json</code>.</p>
 
     <p>Questions and methodology feedback: <a href="mailto:invest@b.studio">invest@b.studio</a>.</p>
@@ -753,6 +765,15 @@
   <section class="article-section" id="s09">
     <span class="sec-eyebrow">§09 · Changelog</span>
     <h2>Changelog</h2>
+
+    <p class="changelog-version">v0.1.2 &nbsp;·&nbsp; 2026-05-05 &nbsp;·&nbsp; Documentation patch — model→product→backtester loop framing</p>
+
+    <ul>
+      <li>§01 expanded to describe the LMMI as the live methodology underwriting Studio b.'s investment strategy, not just a passive observation index. The model is the strategy's audit trail; the backtester is the proof artifact for verified LPs.</li>
+      <li>§08 adds a new "How the model tunes the fund" subsection. Documents the loop architecture: model evolves → strategy retunes → backtester reflects current state. Specific fund parameters disclosed in offering documents (not on the methodology page); the methodology paper describes the LOOP.</li>
+      <li>No code changes. The wasala v0.1 BDC-anchor methodology is unchanged.</li>
+      <li>v0.1.2 patch increments per §07 version-bump policy: documentation clarifications.</li>
+    </ul>
 
     <p class="changelog-version">v0.1.1 &nbsp;·&nbsp; 2026-05-05 &nbsp;·&nbsp; Documentation patch — multi-anchor architecture clarified</p>
 
@@ -785,7 +806,7 @@
     <div class="article-footer-strip">
       Methodology designed by Kevin Bibelhausen <span class="vm">·</span> Published by Benchmarks, by Studio b<span class="vm">.</span> LLC
       <br>
-      Version 0.1.1 <span class="vm">·</span> 2026-05-05 <span class="vm">·</span> lmmi<span class="vm">.</span>b<span class="vm">.</span>studio <span class="vm">·</span> Open <span class="vm">·</span> Free
+      Version 0.1.2 <span class="vm">·</span> 2026-05-05 <span class="vm">·</span> lmmi<span class="vm">.</span>b<span class="vm">.</span>studio <span class="vm">·</span> Open <span class="vm">·</span> Free
     </div>
     <a href="/" class="article-footer-back">← Back to Studio b. LMMI</a>
   </div>
@@ -793,7 +814,7 @@
 </div><!-- /article-wrap -->
 
 <div class="page-footer-strip">
-  <span>Studio b<span class="footer-vm">.</span> LMMI &nbsp;·&nbsp; lmmi<span class="footer-vm">.</span>b<span class="footer-vm">.</span>studio &nbsp;·&nbsp; Methodology v0.1.1 &nbsp;·&nbsp; Open &nbsp;·&nbsp; Free</span>
+  <span>Studio b<span class="footer-vm">.</span> LMMI &nbsp;·&nbsp; lmmi<span class="footer-vm">.</span>b<span class="footer-vm">.</span>studio &nbsp;·&nbsp; Methodology v0.1.2 &nbsp;·&nbsp; Open &nbsp;·&nbsp; Free</span>
   <span>&copy; 2026 Benchmarks, by Studio b<span class="footer-vm">.</span> LLC</span>
 </div>
 
