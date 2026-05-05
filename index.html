@@ -148,9 +148,17 @@
     /* ===== HERO ===== */
     .hero {
       padding: 6rem 4rem 5rem;
-      max-width: 1100px;
+      max-width: 1280px;
       border-bottom: 1px solid var(--ink-10);
     }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: 4rem;
+      align-items: start;
+    }
+    .hero-text { min-width: 0; }
+    .hero-aside { min-width: 0; }
     .hero-eyebrow {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.62rem;
@@ -201,6 +209,42 @@
       transition: color 0.12s, border-color 0.12s;
     }
     .hero-cta:hover { color: var(--vermillion); border-color: var(--vermillion); }
+
+    /* Subscribe card (lives in hero aside) */
+    .hero-subscribe {
+      background: var(--paper-dk);
+      padding: 2rem;
+      border: 1px solid var(--ink-10);
+      position: sticky;
+      top: 2rem;
+    }
+    .hero-subscribe .subscribe-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--vermillion);
+      margin-bottom: 1rem;
+    }
+    .hero-subscribe h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(1.4rem, 1.6vw, 1.7rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.85rem;
+      font-variation-settings: "opsz" 60;
+    }
+    .hero-subscribe .subscribe-body {
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--ink-72);
+      margin-bottom: 1.5rem;
+    }
 
     /* ===== SECTION SHARED ===== */
     .section-body { padding: 5rem 4rem; border-bottom: 1px solid var(--ink-10); }
@@ -439,12 +483,17 @@
     .footer-vm { color: var(--vermillion); }
 
     /* ===== RESPONSIVE ===== */
+    @media (max-width: 980px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-subscribe { position: static; }
+    }
     @media (max-width: 768px) {
       .masthead { padding: 1rem 1.5rem; flex-direction: column; gap: 0.85rem; }
       .masthead-pubmark { display: none; }
       .ticker-wrap { padding: 1rem 1.5rem; }
       .hero { padding: 4rem 1.5rem 3rem; }
       .why, .section-body, .subscribe, .archive { padding: 3.5rem 1.5rem; }
+      .hero-subscribe { padding: 1.5rem; }
       footer { grid-template-columns: 1fr; padding: 3rem 1.5rem 1.5rem; }
       .footer-strip { padding: 1rem 1.5rem 2rem; flex-direction: column; gap: 0.75rem; align-items: flex-start; }
       .masthead-nav { flex-wrap: wrap; gap: 1rem; }
@@ -488,10 +537,33 @@
 
 <!-- Hero -->
 <section class="hero">
-  <p class="hero-eyebrow">Studio b. LMMI · Index Brief</p>
-  <h1>The only open index for the lower <em>middle market.</em></h1>
-  <p class="hero-lede">Quarterly spread, structure, and recovery data across the global lower middle market — sourced from SBA 7(a), Companies House workouts, and the LMM-eligible BDC universe. Market event commentary as it happens. We publish it because the benchmarks didn't exist — and LPs deserve the data before they commit capital.</p>
-  <a href="/methodology" class="hero-cta">Read the full methodology <span>→</span></a>
+  <div class="hero-grid">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Studio b. LMMI · Index Brief</p>
+      <h1>The only open index for the lower <em>middle market.</em></h1>
+      <p class="hero-lede">Quarterly spread, structure, and recovery data across the global lower middle market — sourced from SBA 7(a), Companies House workouts, and the LMM-eligible BDC universe. Market event commentary as it happens. We publish it because the benchmarks didn't exist — and LPs deserve the data before they commit capital.</p>
+      <a href="/methodology" class="hero-cta">Read the full methodology <span>→</span></a>
+    </div>
+    <aside class="hero-aside" id="subscribe">
+      <div class="hero-subscribe">
+        <div class="subscribe-kicker">Subscribe — free</div>
+        <h2>Get the index when it updates.</h2>
+        <p class="subscribe-body">Studio b. LMMI publishes quarterly with the index update. Between quarters, you'll hear from us when a market event reshapes the picture — not on a calendar.</p>
+        <form id="subscribe-form" class="subscribe-form" novalidate>
+          <div class="input-row">
+            <span class="prompt">&gt;</span>
+            <input id="subscribe-email" type="email" name="email" placeholder="your@email.com" autocomplete="email" required />
+          </div>
+          <button class="submit-btn" type="submit">
+            <span>Subscribe — free</span>
+            <span>→</span>
+          </button>
+          <p class="form-status" id="subscribe-status" role="status" aria-live="polite"></p>
+          <p class="form-note">No spam. Unsubscribe any time.</p>
+        </form>
+      </div>
+    </aside>
+  </div>
 </section>
 
 <!-- Why we built this -->
@@ -506,26 +578,7 @@
   </div>
 </section>
 
-<!-- Subscribe -->
-<section class="subscribe" id="subscribe">
-  <div class="subscribe-inner">
-    <div class="subscribe-kicker">Subscribe — free</div>
-    <h2>Get the index when it updates. Plus market events as they happen.</h2>
-    <p class="subscribe-body">Studio b. LMMI publishes quarterly with the index update. Between quarters, you'll hear from us when a market event reshapes the picture — not on a calendar.</p>
-    <form id="subscribe-form" class="subscribe-form" novalidate>
-      <div class="input-row">
-        <span class="prompt">&gt;</span>
-        <input id="subscribe-email" type="email" name="email" placeholder="your@email.com" autocomplete="email" required />
-      </div>
-      <button class="submit-btn" type="submit">
-        <span>Subscribe — free</span>
-        <span>→</span>
-      </button>
-      <p class="form-status" id="subscribe-status" role="status" aria-live="polite"></p>
-      <p class="form-note">No spam. Unsubscribe any time.</p>
-    </form>
-  </div>
-</section>
+<!-- Subscribe section moved into hero aside (#subscribe anchor preserved there). -->
 
 <!-- Archive -->
 <section class="archive" id="archive">
