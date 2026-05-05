@@ -375,11 +375,52 @@
     }
     .footer-vm { color: var(--vermillion); }
 
+    /* ===== VERSION BANNER ===== */
+    .version-banner {
+      background: var(--paper-dk);
+      border-bottom: 1px solid var(--ink-10);
+      padding: 0.6rem 4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--ink-55);
+    }
+    .version-banner .vb-version {
+      color: var(--forest);
+      font-weight: 700;
+    }
+    .version-banner .vb-sep { color: var(--ink-30); }
+    .version-banner a.vb-link {
+      color: var(--forest);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(26,51,40,0.3);
+      transition: color 0.12s, border-color 0.12s;
+    }
+    .version-banner a.vb-link:hover { color: var(--vermillion); border-color: var(--vermillion); }
+
+    /* ===== CHANGELOG LIST ===== */
+    .changelog-version {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--forest);
+      margin: 2rem 0 0.75rem;
+    }
+    .changelog-version:first-child { margin-top: 0; }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       .masthead { padding: 1rem 1.5rem; flex-direction: column; gap: 0.75rem; }
       .masthead-pubmark { display: none; }
       .masthead-nav { flex-wrap: wrap; gap: 0.85rem; }
+      .version-banner { padding: 0.6rem 1.5rem; flex-wrap: wrap; gap: 0.35rem; }
       .article-wrap { padding: 0 1.5rem; }
       .article-header { padding: 3.5rem 0 2.5rem; }
       .article-section { padding: 2.5rem 0; }
@@ -404,6 +445,17 @@
   </nav>
 </header>
 
+<!-- Version banner -->
+<div class="version-banner">
+  <span>Methodology</span>
+  <span class="vb-sep">·</span>
+  <span class="vb-version">v0.1</span>
+  <span class="vb-sep">·</span>
+  <span>Last revised 2026-05-04</span>
+  <span class="vb-sep">·</span>
+  <a href="#s09" class="vb-link">Changelog →</a>
+</div>
+
 <!-- Article -->
 <div class="article-wrap">
 
@@ -418,7 +470,7 @@
       <span class="article-meta-sep">·</span>
       <span class="article-meta-item">Status <span class="vm">·</span> Draft</span>
       <span class="article-meta-sep">·</span>
-      <span class="article-meta-item">8 sections</span>
+      <span class="article-meta-item">9 sections</span>
     </div>
   </header>
 
@@ -610,6 +662,16 @@
 
     <p><strong>Versioning:</strong> Methodology revisions increment a semantic version. The current version is 0.1. <code>v1.0</code> is reserved for post-IOSCO-external-audit release, targeted Q1 2027 (~$20–40K engagement scope). All revisions are git-tagged <code>wdli-v&lt;x.y&gt;</code> in the wasala repository.</p>
 
+    <p><strong>Version-bump policy.</strong></p>
+
+    <ul>
+      <li><strong>Major (v1.0 → v2.0):</strong> Reserved for post-IOSCO-external-audit release at M9 (targeted Q1 2027) and any future change that materially redefines what the index measures — universe scope change, weighting methodology change, or segment boundary change confirmed via committee review.</li>
+      <li><strong>Minor (v0.1 → v0.2):</strong> Methodology revisions that change construction rules, classification boundaries, signal weights, or universe inclusion criteria. Each minor version is published with a §09 changelog entry, a methodology paper diff, and a re-run of any affected historical series. Old series remain accessible for reproducibility.</li>
+      <li><strong>Patch (v0.1 → v0.1.1):</strong> Documentation clarifications, typo corrections, or non-substantive edits that do not change the index methodology or its outputs. Patch revisions still log a changelog entry but do not require a series re-run.</li>
+      <li><strong>Cadence:</strong> No fixed schedule. The methodology is revised when the data, the universe, or external benchmarks (e.g., CDLI methodology updates) require it. The index itself publishes quarterly per the WDLI publish pipeline; methodology revisions are independent of that cadence.</li>
+      <li><strong>Where archived versions live:</strong> Historical methodology versions remain accessible at <code>lmmi.b.studio/methodology/v&lt;x.y&gt;</code> (this routing convention starts after the first revision; v0.1 is the live state until v0.2 publishes). When the §09 changelog grows past a small number of entries, it will move to a dedicated page at <code>lmmi.b.studio/methodology/changelog</code>.</li>
+    </ul>
+
     <p><strong>IOSCO self-attestation:</strong> v0.1 is self-attested against IOSCO Principles for Financial Benchmarks P1, P3, P4, P7, P8, P10–P12. P2, P5, P6, and P9 are not applicable because the Studio b. LMMI derives entirely from public regulatory filings — no data submitters, no panel members. The full self-attestation document is available at <code>lmmi.b.studio/methodology/iosco-v0-self-attestation</code>.</p>
   </section>
 
@@ -653,6 +715,25 @@
     <p>The wasala dbt project (the Studio b. LMMI's full source code) is privately held pending external IOSCO audit, targeted Q1 2027. Replication scripts for all public ingest sources — SEC EDGAR, SBA 7(a), UK Companies House — are available on request at <a href="mailto:invest@b.studio">invest@b.studio</a>. Every quarterly publication is independently reproducible from public source files given the <code>methodology_version</code>, <code>git_sha</code>, and <code>ingest_run_ids</code> recorded in that quarter's <code>lineage.json</code>.</p>
 
     <p>Questions and methodology feedback: <a href="mailto:invest@b.studio">invest@b.studio</a>.</p>
+  </section>
+
+  <!-- §09 -->
+  <section class="article-section" id="s09">
+    <span class="sec-eyebrow">§09 · Changelog</span>
+    <h2>Changelog</h2>
+
+    <p class="changelog-version">v0.1 &nbsp;·&nbsp; 2026-05-04 &nbsp;·&nbsp; Initial publication</p>
+
+    <ul>
+      <li>Open methodology paper published at <code>lmmi.b.studio/methodology</code></li>
+      <li>8 sections covering universe construction (§02), data sources (§03), three-layer Bayesian classification (§04), horizon disclosure (§05), validation gates (§06), governance and versioning (§07), and reproducibility/access (§08)</li>
+      <li>LMM/UMM boundary set at $50M EBITDA via Bayesian ensemble</li>
+      <li>10 BDC adapters in v0.1 universe (ARCC, GBDC, MAIN, PSEC, FSK, HTGC, PRSP, TCRD, BXSL, OBDE), covering approximately 85% of public BDC AUM</li>
+      <li>Live observation window 2006–2025 (19 years); pre-2010 model-implied synthetic extension disclosed per §05</li>
+      <li>IOSCO self-attestation P1, P3, P4, P7, P8, P10–P12 documented</li>
+      <li><code>v1.0</code> reserved for post-IOSCO-external-audit release, targeted Q1 2027</li>
+      <li>Open methodology questions: v0.x EBITDA boundary alignment with CDLI-LMM (under investigation); BDC coverage gate on publish (under investigation)</li>
+    </ul>
   </section>
 
   <!-- Article footer -->
