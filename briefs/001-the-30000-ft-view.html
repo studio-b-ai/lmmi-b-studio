@@ -434,11 +434,13 @@
 
     <p>The SBA 7(a) program captures small-business lending at its most granular — individual loans to companies well below $5M EBITDA, with public FOIA microdata on origination volume, charge-off curves, and sector distribution. It is the floor of LMM credit, observable and free.</p>
 
-    <p>Above it, Business Development Companies file quarterly Schedules of Investments with the SEC. ARCC, MAIN, GBDC, and the rest of the public BDC universe document their holdings — fair values, interest rates, non-accrual flags — in 10-K and 10-Q filings. Cliffwater's CDLI-LMM, launched September 2024, is the institutional benchmark built from this data: rigorous, subscription-only, limited to the observable BDC universe.</p>
+    <p>Above it, Business Development Companies file quarterly Schedules of Investments with the SEC. ARCC, MAIN, GBDC, and the rest of the public BDC universe document their holdings — fair values, interest rates, non-accrual flags — in 10-K and 10-Q filings. Existing institutional benchmarks are built from this data: rigorous, subscription-only, limited to the observable BDC universe.</p>
 
     <p>What falls between the two? Companies with $5–25M EBITDA — the actual lower middle market by most practitioners' definitions — appear in neither dataset. BDCs target this segment in their fund mandates, but their average realized borrower sits above it. No single public source maps to the $5–25M band directly.</p>
 
     <p>That's not a gap that exists because nobody noticed. It exists because it's hard. The segment is observable only by inference from boundary data — and inference requires a model.</p>
+
+    <p>LMMI is that model. The methodology is open because the decision logic has to be auditable — LPs verify the model that designs the strategy, not just cite the headline number. The backtester at <a href="https://invest.b.studio">invest.b.studio</a> is the proof artifact: apply your own PD, LGD, and spread assumptions to 19 years of historical data and see whether the thesis holds.</p>
   </section>
 
   <!-- §02 -->
@@ -468,7 +470,7 @@
     </ul>
 
     <blockquote class="pull-quote">
-      The model is the product. Cliffwater observes. Studio b. models the segment below.
+      The model is the product. We observe the boundaries; we model the segment between; we invest where the model says alpha lives.
       <cite>— Studio b. LMMI, Brief 001</cite>
     </blockquote>
   </section>
@@ -485,6 +487,8 @@
     <p>This is the upper band of the segment, not the segment itself. It is an honest foundation. The SBA anchor comes next, then the Companies House anchor, then the interpolation model that synthesizes them into the modeled middle. Each version of the index adds an anchor or refines the model. The version-by-version roadmap is documented in the methodology paper at §07.</p>
 
     <p>What v0.1 is not: a total-return series, a complete multi-anchor index, or a claim about private BDC or CLO activity. It is the observable upper band, measured rigorously, published openly. The live observation window runs 2006–2025 (19 years). A synthetic extension back to approximately 1992 exists, calibrated via SBA charge-off rates — it is disclosed explicitly as model-implied wherever it appears.</p>
+
+    <p>The model feeds the fund's strategy directly. Studio b. LMM Bridge Fund I is designed around what the model identifies as the durable spread-premium zone in the $5–25M EBITDA band. Fund returns, in turn, refine the model. The open methodology is auditable decision logic — LPs verify the model that designs the strategy, not just take our word for the thesis.</p>
   </section>
 
   <!-- §04 -->
@@ -492,13 +496,13 @@
     <span class="sec-eyebrow">§04 · Why the methodology is open</span>
     <h2>Why the methodology is open</h2>
 
-    <p>Cliffwater's CDLI-LMM is subscription-only. So is every other institutional credit benchmark with real coverage.</p>
+    <p>Every institutional credit benchmark with real coverage is subscription-only. That is the default access model for the segment.</p>
 
-    <p>Studio b. LMMI publishes the construction rules. The universe selection criteria, the classification signals, the weighting math, the calibration sample size, the concordance rate against CDLI-LMM, the known classification uncertainty at the $40–60M EBITDA boundary — all of it is on <a href="/methodology">lmmi.b.studio/methodology</a>.</p>
+    <p>Studio b. LMMI publishes the construction rules. The universe selection criteria, the classification signals, the weighting math, the calibration sample size, the known classification uncertainty at the $40–60M EBITDA boundary — all of it is on <a href="/methodology">lmmi.b.studio/methodology</a>.</p>
 
     <p>The open methodology is not charity. It is the basis for being taken seriously. An LP doing diligence on a fund that uses LMMI data in its thesis needs to verify the methodology, not just cite it. A sell-side analyst benchmarking a client's portfolio needs to understand what the index does and doesn't claim. A journalist writing about private credit spread compression needs to know whether the data holds up.</p>
 
-    <p>Cliffwater observes; Studio b. models. Both products serve the allocator community, on different segments of the same market, at different price points. The free-and-open tier is the quarterly headline print and the methodology paper. The institutional-data subscription — full constituent universe, historical CSV, weekly commentary, DD-grade brief — targets the researchers, journalists, and family offices who need depth beyond the headline. That tier is in development, targeted alongside the IOSCO external audit in Q1 2027.</p>
+    <p>The free-and-open tier is the quarterly headline print and the methodology paper. The institutional-data subscription — full constituent universe, historical CSV, weekly commentary, DD-grade brief — targets the researchers, journalists, and family offices who need depth beyond the headline. That tier is in development, targeted alongside the IOSCO external audit in Q1 2027.</p>
   </section>
 
   <!-- Pointers -->
