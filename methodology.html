@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Methodology — Studio b. LMMI</title>
+  <meta name="description" content="Studio b. LMMI methodology v0.1 — open construction rules, universe definition, classification method, validation, governance, and reproducibility for the Lower Middle Market Direct Lending Index.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Studio b. LMMI">
+  <meta property="og:title" content="Methodology v0.1 — Studio b. LMMI">
+  <meta property="og:description" content="Open construction rules for the Lower Middle Market Direct Lending Index. Source Serif 4. Published by Benchmarks, by Studio b. LLC.">
+  <meta property="og:url" content="https://lmmi.b.studio/methodology">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500;1,9..144,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --paper:       #F4F1EB;
+      --paper-dk:    #EAE6DC;
+      --ink:         #0D0D0D;
+      --ink-72:      rgba(13,13,13,0.72);
+      --ink-55:      rgba(13,13,13,0.55);
+      --ink-30:      rgba(13,13,13,0.30);
+      --ink-10:      rgba(13,13,13,0.10);
+      --vermillion:  #D94425;
+      --forest:      #1A3328;
+      --forest-72:   rgba(26,51,40,0.72);
+      --stripe-height: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Source Serif 4', serif;
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+
+    /* ===== CAUTION STRIPE ===== */
+    .stripe {
+      height: var(--stripe-height);
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--forest) 0, var(--forest) 8px,
+        var(--paper)  8px, var(--paper)  16px
+      );
+      border-top: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+    }
+
+    /* ===== MASTHEAD ===== */
+    .masthead {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 1.5rem 4rem;
+      border-bottom: 1px solid var(--ink-10);
+    }
+    .bmark {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--ink);
+      letter-spacing: -0.04em;
+      text-decoration: none;
+      line-height: 1;
+    }
+    .bmark .dot { color: var(--vermillion); }
+    .masthead-pubmark {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--ink-55);
+    }
+    .masthead-nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .nav-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-55);
+      text-decoration: none;
+      transition: color 0.12s;
+    }
+    .nav-link:hover { color: var(--forest); }
+
+    /* ===== ARTICLE LAYOUT ===== */
+    .article-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 4rem;
+    }
+
+    /* ===== ARTICLE HEADER ===== */
+    .article-header {
+      padding: 5rem 0 3.5rem;
+      border-bottom: 1px solid var(--ink-10);
+    }
+    .article-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--vermillion);
+      margin-bottom: 1.5rem;
+    }
+    .article-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-style: normal;
+      font-size: clamp(2.4rem, 5vw, 3.75rem);
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+      font-variation-settings: "opsz" 144;
+    }
+    .article-sub {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1.35rem;
+      line-height: 1.45;
+      color: var(--forest);
+      margin-bottom: 2rem;
+      font-variation-settings: "opsz" 60;
+    }
+    .article-meta {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .article-meta-item {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--ink-55);
+    }
+    .article-meta-item .vm { color: var(--vermillion); }
+    .article-meta-sep { color: var(--ink-30); font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; }
+
+    /* ===== ARTICLE INTRO ===== */
+    .article-intro {
+      padding: 3rem 0 2rem;
+      border-bottom: 1px solid var(--ink-10);
+    }
+    .article-intro p {
+      font-size: 1.15rem;
+      line-height: 1.75;
+      color: var(--ink-72);
+      margin-bottom: 1rem;
+    }
+
+    /* ===== SECTION STRUCTURE ===== */
+    .article-section {
+      padding: 3.5rem 0;
+      border-bottom: 1px solid var(--ink-10);
+    }
+    .article-section:last-of-type { border-bottom: none; }
+
+    .sec-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--vermillion);
+      margin-bottom: 0.65rem;
+      display: block;
+    }
+    .article-section h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-style: italic;
+      font-size: clamp(1.55rem, 3vw, 2rem);
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-bottom: 2rem;
+      font-variation-settings: "opsz" 60;
+    }
+
+    /* ===== BODY COPY ===== */
+    .article-section p {
+      font-size: 1.05rem;
+      line-height: 1.78;
+      color: var(--ink-72);
+      margin-bottom: 1.1rem;
+      max-width: 68ch;
+    }
+    .article-section p:last-child { margin-bottom: 0; }
+    .article-section strong { color: var(--ink); font-weight: 600; }
+    .article-section em { font-style: italic; }
+    .article-section a {
+      color: var(--forest);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(26,51,40,0.3);
+      transition: color 0.12s, border-color 0.12s;
+    }
+    .article-section a:hover { color: var(--vermillion); border-color: var(--vermillion); }
+    .article-section code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85em;
+      color: var(--forest);
+      background: var(--paper-dk);
+      padding: 0.1em 0.35em;
+      border: 1px solid var(--ink-10);
+    }
+
+    /* ===== LISTS ===== */
+    .article-section ol,
+    .article-section ul {
+      margin: 1.2rem 0 1.2rem 1.5rem;
+      max-width: 66ch;
+    }
+    .article-section li {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--ink-72);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ===== PULL QUOTE ===== */
+    blockquote.pull-quote {
+      margin: 3rem 0;
+      padding: 1.75rem 2rem 1.75rem 2.25rem;
+      border-left: 4px solid var(--vermillion);
+      background: rgba(26,51,40,0.04);
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1.45rem;
+      line-height: 1.4;
+      color: var(--forest);
+      max-width: 62ch;
+      font-variation-settings: "opsz" 60;
+    }
+    blockquote.pull-quote cite {
+      display: block;
+      margin-top: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-style: normal;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--ink-55);
+    }
+
+    /* ===== DISCLOSURE BLOCK ===== */
+    blockquote.disclosure {
+      margin: 1.5rem 0;
+      padding: 1.25rem 1.5rem;
+      border-left: 3px solid var(--ink-30);
+      background: var(--paper-dk);
+      font-family: 'Source Serif 4', serif;
+      font-style: italic;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--ink-72);
+      max-width: 66ch;
+    }
+
+    /* ===== HR ===== */
+    hr.section-rule {
+      border: none;
+      border-top: 1px solid var(--ink-10);
+      margin: 2.5rem 0;
+    }
+
+    /* ===== DATA SOURCES TABLE ===== */
+    .data-table-wrap {
+      overflow-x: auto;
+      margin: 2rem 0;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    .data-table th {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--ink-55);
+      text-align: left;
+      padding: 0.75rem 1rem 0.75rem 0;
+      border-bottom: 2px solid var(--ink);
+    }
+    .data-table td {
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--ink-72);
+      padding: 0.85rem 1rem 0.85rem 0;
+      border-bottom: 1px solid var(--ink-10);
+      vertical-align: top;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table td:first-child {
+      color: var(--ink);
+      font-weight: 500;
+      min-width: 240px;
+    }
+    .data-table td:last-child {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      color: var(--ink-55);
+      white-space: nowrap;
+    }
+
+    /* ===== ARTICLE FOOTER ===== */
+    .article-footer {
+      padding: 3.5rem 0 4rem;
+      border-top: 1px solid var(--ink-10);
+      margin-top: 1rem;
+    }
+    .article-footer-strip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--ink-30);
+      line-height: 1.8;
+    }
+    .article-footer-strip .vm { color: var(--vermillion); }
+    .article-footer-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--forest);
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--forest);
+      padding-bottom: 0.2rem;
+      transition: color 0.12s, border-color 0.12s;
+    }
+    .article-footer-back:hover { color: var(--vermillion); border-color: var(--vermillion); }
+
+    /* ===== PAGE FOOTER ===== */
+    .page-footer-strip {
+      padding: 1.25rem 4rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-30);
+      border-top: 1px solid var(--ink-10);
+    }
+    .footer-vm { color: var(--vermillion); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .masthead { padding: 1rem 1.5rem; flex-direction: column; gap: 0.75rem; }
+      .masthead-pubmark { display: none; }
+      .masthead-nav { flex-wrap: wrap; gap: 0.85rem; }
+      .article-wrap { padding: 0 1.5rem; }
+      .article-header { padding: 3.5rem 0 2.5rem; }
+      .article-section { padding: 2.5rem 0; }
+      .page-footer-strip { padding: 1rem 1.5rem 2rem; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Caution stripe: forest/paper, 10px, hard corners -->
+<div class="stripe"></div>
+
+<!-- Masthead -->
+<header class="masthead">
+  <a href="/" class="bmark">b<span class="dot">.</span></a>
+  <span class="masthead-pubmark">Studio b. LMMI &nbsp;·&nbsp; Lower Middle Market Direct Lending Index</span>
+  <nav class="masthead-nav">
+    <a href="/" class="nav-link">← Index</a>
+    <a href="/#why" class="nav-link">Why</a>
+    <a href="/#subscribe" class="nav-link">Subscribe</a>
+    <a href="https://invest.b.studio" class="nav-link">invest<span style="color:var(--vermillion)">.</span>b<span style="color:var(--vermillion)">.</span>studio</a>
+  </nav>
+</header>
+
+<!-- Article -->
+<div class="article-wrap">
+
+  <header class="article-header">
+    <p class="article-kicker">Studio b. LMMI &nbsp;·&nbsp; Open Methodology</p>
+    <h1 class="article-title">Methodology</h1>
+    <p class="article-sub">Studio b. Lower Middle Market Direct Lending Index — version 0.1</p>
+    <div class="article-meta">
+      <span class="article-meta-item">Version <span class="vm">·</span> v0.1</span>
+      <span class="article-meta-sep">·</span>
+      <span class="article-meta-item">2026-05-04</span>
+      <span class="article-meta-sep">·</span>
+      <span class="article-meta-item">Status <span class="vm">·</span> Draft</span>
+      <span class="article-meta-sep">·</span>
+      <span class="article-meta-item">8 sections</span>
+    </div>
+  </header>
+
+  <!-- Intro paragraph -->
+  <div class="article-intro">
+    <p>The Studio b. LMMI exists because the benchmarks didn't. Lower middle market direct lending is one of the largest and least-documented corners of private credit. The methodology is open. The construction rules are published here. The quarterly index print and weekly market commentary are free. Detailed data — the full constituent universe, historical CSV, and quarterly DD-grade brief — is subscription-priced for institutional researchers, journalists, and allocators. Verified accredited LPs access the backtester through <a href="https://invest.b.studio">invest.b.studio</a>. Three tiers, one methodology, one universe.</p>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- §01 -->
+  <section class="article-section" id="s01">
+    <span class="sec-eyebrow">§01 · Why the Index Exists</span>
+    <h2>Why the Index Exists</h2>
+
+    <p>Direct lending to U.S. lower middle market companies is a large and growing asset class. The publicly-registered Business Development Company universe alone holds an estimated $90–110 billion in LMM-classified fair-value assets. That number is not tracked by any freely-accessible benchmark.</p>
+
+    <p>The closest peer is the Cliffwater Direct Lending Index Lower Middle Market (CDLI-LMM), which Cliffwater <a href="https://www.cliffwaterdirectlendingindex.com/files/cdli/docs/CDLI_Fact_Page.pdf">defines</a> as BDCs whose borrowers average less than $40M EBITDA. CDLI-LMM launched in September 2024 with performance history back to September 2019. It is the institutional benchmark for the segment. It is also subscription-only, US-only, and BDC-universe only.</p>
+
+    <p>The Studio b. LMMI is differentiated on two things, not on coverage gap:</p>
+
+    <ol>
+      <li><strong>Open methodology and open print.</strong> The construction rules, weighting math, calibration scope, and data lineage are published on this page. The quarterly index value lands in subscriber inboxes free. CDLI's full methodology document and quarterly print sit behind a subscription gate.</li>
+      <li><strong>Coverage extends beyond the BDC universe.</strong> SBA 7(a) loan data captures sub-BDC origination volume; UK Companies House workout records anchor cross-jurisdictional recovery rates. CDLI-LMM is BDC-only and US-only by its own scope.</li>
+    </ol>
+
+    <p>On segment definition, the Studio b. LMMI classifies holdings against an EBITDA boundary of $50M using a three-layer Bayesian ensemble (see §02). CDLI-LMM uses a $40M average-borrower test. Whether the Studio b. LMMI should adopt CDLI-LMM's $40M boundary for direct apples-to-apples comparability — and whether to align on classification rule (mandate-language vs portfolio-average) — is an open methodology question under investigation. Concordance with CDLI-LMM (currently 80%, see §06) is the binding metric: any change must improve concordance, not regress it.</p>
+
+    <p>The Studio b. LMMI is not in competition with CDLI-LMM on the segment they share. It is a different access model on a partially-overlapping universe.</p>
+  </section>
+
+  <!-- §02 -->
+  <section class="article-section" id="s02">
+    <span class="sec-eyebrow">§02 · Universe Construction</span>
+    <h2>Universe Construction</h2>
+
+    <p>The index universe consists of Business Development Companies registered under §54 of the Investment Company Act of 1940 that file Schedules of Investments with the SEC via 10-K and 10-Q filings.</p>
+
+    <p><strong>Eligibility criteria for a given quarter:</strong></p>
+
+    <ol>
+      <li>BDC election active, confirmed via 10-K or 10-Q filing</li>
+      <li>Fair-value schedule of investments parseable from the filing (XBRL-tagged or structured text extraction)</li>
+      <li>Total fair-value AUM of at least $100 million in the quarter</li>
+      <li>Filing available within T+90 days of quarter-end (the Studio b. LMMI publication window)</li>
+    </ol>
+
+    <p>Eligibility is computed per quarter. A BDC that misses a quarter due to filing delay is excluded for that quarter; no interpolation is applied.</p>
+
+    <p><strong>Current universe (v0.1):</strong> 10 adapters — ARCC, GBDC, MAIN, PSEC, FSK, HTGC, PRSP, TCRD, BXSL, OBDE — covering approximately 85% of public BDC AUM by fair value. Full universe expansion to 30+ BDCs is planned for v0.x. The specific adapters, their mandate classifications, and their source filing accession numbers are documented in Appendix B of the v0.1 methodology paper.</p>
+
+    <p><strong>What the universe does not include:</strong> private BDCs, insurance-company-affiliated direct lenders, CLOs, separately managed accounts, or any fund not subject to SEC filing requirements. The Studio b. LMMI does not claim to represent all LMM direct lending activity — only the subset visible through public BDC filings.</p>
+  </section>
+
+  <!-- §03 -->
+  <section class="article-section" id="s03">
+    <span class="sec-eyebrow">§03 · Data Sources</span>
+    <h2>Data Sources</h2>
+
+    <p>Every input to the Studio b. LMMI is a free public source. No paid data is required for v0 index computation.</p>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Purpose</th>
+            <th>Cadence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>SEC EDGAR BDC 10-K filings (XBRL + MD&amp;A)</td>
+            <td>BDC mandate classification, EBITDA proxy, annual holding inventory</td>
+            <td>Annual</td>
+          </tr>
+          <tr>
+            <td>SEC EDGAR XBRL portfolio disclosures (10-Q)</td>
+            <td>Quarterly per-holding fair values</td>
+            <td>Quarterly</td>
+          </tr>
+          <tr>
+            <td>IRS Statistics of Income — Pub. 1053 corporate source book</td>
+            <td>NAICS sector-level LMM penetration rates by revenue decile</td>
+            <td>Annual</td>
+          </tr>
+          <tr>
+            <td>Census Bureau Statistics of U.S. Businesses (SUSB)</td>
+            <td>Firm-size distribution by sector</td>
+            <td>Annual</td>
+          </tr>
+          <tr>
+            <td>SBA FOIA 7(a) loan microdata</td>
+            <td>Charge-off curves for pre-2010 synthetic calibration; PD/LGD reference</td>
+            <td>Annual</td>
+          </tr>
+          <tr>
+            <td>NBER recession indicators</td>
+            <td>Macro conditioning in calibration model</td>
+            <td>Quarterly</td>
+          </tr>
+          <tr>
+            <td>FRED macro series</td>
+            <td>Credit spread and rate environment inputs</td>
+            <td>Monthly / Quarterly</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>Live observation window:</strong> 2006–2025 (19 years). BDC SOI coverage before 2010 is sparse; the pre-2010 segment is a model-implied synthetic extension, not live observation. The 2006 floor is not arbitrary: SBA FOIA loan-level microdata nominally extends to FY1991, but the pre-2006 portion carries documented chargeoff rate anomalies (observed range 55–92% vs. 2–8% in the post-2006 panel). The Studio b. LMMI treats 2006 as the live observation floor and discloses any pre-2010 extension as synthetic. See §05 for the required disclosure language that must accompany any chart or claim referencing a longer horizon.</p>
+  </section>
+
+  <!-- §04 -->
+  <section class="article-section" id="s04">
+    <span class="sec-eyebrow">§04 · Construction Rules</span>
+    <h2>Construction Rules</h2>
+
+    <p><strong>Classification method:</strong> Each holding in each BDC's Schedule of Investments is classified as LMM or UMM (upper middle market) using a three-layer Bayesian ensemble. The output of each layer is a posterior probability <code>p_lmm</code> in [0, 1]. The LMM/UMM boundary is EBITDA $50M.</p>
+
+    <p><strong>Layer 1 — BDC mandate prior.</strong> Each BDC is assigned a mandate class from a curated reading of its most recent 10-K investment objective language: <code>lmm_pure</code> (EBITDA upper bound ≤ $50M stated), <code>umm_pure</code> (EBITDA lower bound ≥ $75M stated), or <code>mixed</code>. Prior probabilities: <code>lmm_pure</code> → 0.95, <code>umm_pure</code> → 0.05, <code>mixed</code> → 0.50. The 5% residual on <code>lmm_pure</code> accounts for hold-duration drift and opportunistic UMM investments. Curation is documented in <code>wdli_mandate_prior_seed.csv</code> with source filing accession numbers.</p>
+
+    <p><strong>Layer 2 — Per-holding ensemble.</strong> For each observable holding, the mandate prior is updated using three signals: loan size (M2, EBITDA proxy — loans under $25M fair value presumptively LMM at 80% weight, over $100M presumptively UMM); interest rate (M3, floating-rate loans with spread above SOFR+500bps presumptively LMM); and NAICS sector (M5, sector-level LMM penetration rate from IRS SOI, normalized by revenue-size decile). Signals are combined via naive-Bayes update on the Layer 1 prior.</p>
+
+    <p><strong>Layer 3 — Expected-value aggregation.</strong> The expected LMM AUM for each holding is <code>fair_value_usd × p_lmm_posterior</code>. The quarterly index value is the sum of expected LMM AUM across all eligible BDC holdings.</p>
+
+    <p><strong>Primary series:</strong> Asset-weighted total LMM AUM. The headline series is <code>WDLI(t) = Σᵢ[fair_valueᵢ(t) × p_lmmᵢ(t)]</code> across all eligible constituents in quarter <code>t</code>.</p>
+
+    <p><strong>Secondary series:</strong> Equal-weighted. Each BDC is given equal influence regardless of size, reducing concentration from large constituents such as ARCC.</p>
+
+    <p><strong>Confidence bands:</strong> 95% analytic confidence bands treat each holding's LMM classification as an independent Bernoulli trial with parameter <code>p_lmm</code>. Bootstrap confidence bands are scheduled for v0.1.</p>
+
+    <p><strong>Rebalance cadence:</strong> Quarterly, coinciding with 10-Q filing cycles. Additions and deletions are applied when a BDC first meets or fails the eligibility criteria in a given quarter; no look-ahead is applied.</p>
+
+    <p><strong>Non-accrual treatment:</strong> Per-holding non-accrual flags are extracted from BDC SOI filings. Non-accruing holdings are retained in the index at their reported fair value; no mark-to-zero override is applied. The non-accrual flag is available as a decomposition field. As of v0.1, non-accrual extraction covers 2022–2025 for 7 BDCs with validated accuracy (median |error| 0.2 percentage points against disclosed rates). Pre-2022 non-accrual extraction is in progress and not yet included in the index.</p>
+
+    <p><strong>What this index does not measure:</strong> Total returns, dividend reinvestment, NAV-based performance. The v0 headline series is total LMM AUM in the eligible BDC universe — a level series, not a return series. The total-return series requires NAV-based ingest from BDC Statements of Operations and is deferred to v0.x.</p>
+  </section>
+
+  <!-- §05 -->
+  <section class="article-section" id="s05">
+    <span class="sec-eyebrow">§05 · Horizon Disclosure</span>
+    <h2>Horizon Disclosure</h2>
+
+    <blockquote class="pull-quote">
+      The open methodology is the marketing. But precision about what's observed versus what's modeled is what makes it usable.
+      <cite>— Studio b. LMMI, methodology preface</cite>
+    </blockquote>
+
+    <p>The Studio b. LMMI publishes two distinct horizons. They are not interchangeable.</p>
+
+    <p><strong>Live observation: 2006–2025 (19 years).</strong> Based on dense BDC 10-K/10-Q coverage and SBA 7(a) FOIA microdata with credible chargeoff rates. This is the conservative floor and the only figure that should appear unqualified in any LP-facing tear sheet, fund deck, or public chart axis.</p>
+
+    <p><strong>Modeled extension: approximately 1992–2025 (~33 years).</strong> The live observation window plus a pre-2010 SBA-calibrated synthetic segment. The synthetic segment uses OLS regression of year-over-year LMM AUM growth on SBA charge-off rates, with the calibration sample covering 2022Q4–2025Q4 (n=9 quarterly observations, R²=0.477, slope −11.19). Calibration coefficients are persisted to <code>wdli.calibration_coefficients</code> with the git SHA at each run. The pre-2010 segment carries an explicit ±2σ proxy band — where σ equals the residual standard error of the overlap regression — and must be rendered visibly on any chart displaying pre-2010 data alongside live data.</p>
+
+    <p>The 33-year modeled horizon may be referenced only alongside a footnote disclosing (a) that the pre-2010 segment is model-implied, not observed BDC AUM, and (b) that the calibration sample is n=9 quarterly observations. The required disclosure language for any public surface:</p>
+
+    <blockquote class="disclosure">
+      DLI live observation: 2006–2025 (19 years), based on dense BDC 10-K/10-Q coverage and SBA 7(a) FOIA microdata with credible chargeoff rates. Pre-2010 values shown are SBA-calibrated synthetic projections, carry an explicit ±2σ proxy band, and are derived from a calibration sample of n=9 quarterly observations. Pre-2006 SBA FOIA microdata is excluded from live observation due to documented coverage gaps.
+    </blockquote>
+  </section>
+
+  <!-- §06 -->
+  <section class="article-section" id="s06">
+    <span class="sec-eyebrow">§06 · Validation</span>
+    <h2>Validation</h2>
+
+    <p>The Studio b. LMMI runs two validation checks before each quarterly publication.</p>
+
+    <p><strong>MD&amp;A back-test.</strong> Model-estimated portfolio EBITDA is compared against EBITDA disclosed in BDC 10-K/10-Q Management Discussion &amp; Analysis sections. Portfolio-weighted RMSE is computed using XBRL-tagged disclosures only (the more reliable of XBRL-tagged and regex-extracted data). Gate thresholds: RMSE below 15% on tagged disclosures → publish; 15–20% → trigger BLS QCEW sector data ingest for cross-check; 20% or above → trigger RMA/BizMiner industry financial data ingest. A publication blocked by RMSE does not proceed until the cascade ingest chip is reviewed.</p>
+
+    <p><strong>CDLI-LMM concordance.</strong> A manual fair-use spot-check of Studio b. LMMI LMM classifications against publicly-visible CDLI-LMM constituent disclosures on Cliffwater's public fact pages. No automated scrape is performed. Current concordance rate: 80% (4 of 5 sampled BDCs, point-in-time, April 2026). The gap is ARCC: the Studio b. LMMI classifies ARCC as <code>mixed</code> (partial LMM inclusion); CDLI-LMM includes ARCC as a full constituent given ARCC's scale. This is a known and documented divergence, not a defect.</p>
+
+    <p><strong>Known uncertainty:</strong> Approximately 12% of holdings in the current universe fall within the borderline EBITDA range ($40–60M) where LMM/UMM classification is genuinely ambiguous. For these holdings, the ensemble returns a <code>p_lmm</code> in [0.3, 0.7]. If more than 20% of holdings are ambiguous in any quarter, a methodology committee review is triggered.</p>
+  </section>
+
+  <!-- §07 -->
+  <section class="article-section" id="s07">
+    <span class="sec-eyebrow">§07 · Governance and Versioning</span>
+    <h2>Governance and Versioning</h2>
+
+    <p><strong>Issuer:</strong> Benchmarks, by Studio b. LLC, a dedicated indexing entity legally and operationally separate from any fund advisory entity. All public artifacts attribute the index to Benchmarks, by Studio b. LLC.</p>
+
+    <p><strong>Methodology author:</strong> Kevin Bibelhausen (v0 single-author).</p>
+
+    <p><strong>Methodology committee:</strong> To be constituted at the external audit milestone, targeted Q1 2027. v0 uses single-author governance.</p>
+
+    <p><strong>Conflict-of-interest controls:</strong> Any Capital, by Studio b.-affiliated fund must attest to a pre-publication trading freeze before any quarterly publication proceeds. Attestation is logged in the publication's <code>lineage.json</code> with operator email and timestamp. The attestation flag cannot be set by the publication pipeline itself — it requires a human operator.</p>
+
+    <p><strong>Versioning:</strong> Methodology revisions increment a semantic version. The current version is 0.1. <code>v1.0</code> is reserved for post-IOSCO-external-audit release, targeted Q1 2027 (~$20–40K engagement scope). All revisions are git-tagged <code>wdli-v&lt;x.y&gt;</code> in the wasala repository.</p>
+
+    <p><strong>IOSCO self-attestation:</strong> v0.1 is self-attested against IOSCO Principles for Financial Benchmarks P1, P3, P4, P7, P8, P10–P12. P2, P5, P6, and P9 are not applicable because the Studio b. LMMI derives entirely from public regulatory filings — no data submitters, no panel members. The full self-attestation document is available at <code>lmmi.b.studio/methodology/iosco-v0-self-attestation</code>.</p>
+  </section>
+
+  <!-- §08 -->
+  <section class="article-section" id="s08">
+    <span class="sec-eyebrow">§08 · Reproducibility and Access</span>
+    <h2>Reproducibility and Access</h2>
+
+    <p>Every Studio b. LMMI quarterly publication is independently reproducible. Given the <code>methodology_version</code>, the <code>git_sha</code> of the dbt project at materialization, and the <code>ingest_run_ids</code> for each upstream source, any third party can re-download the source files (all are public regulatory filings with stable URLs), run <code>dbt build --full-refresh</code> against a fresh Postgres instance, and obtain an identical index value within floating-point rounding tolerance.</p>
+
+    <p>Each quarterly publication includes a <code>lineage.json</code> artifact with the following fields: <code>git_sha</code>, <code>methodology_version</code>, <code>publication_timestamp</code>, <code>period_end</code>, <code>ingest_run_ids</code> per source family, <code>dbt_run_id</code>, and <code>freeze_attested_by</code>.</p>
+
+    <p>The Studio b. LMMI publishes across three access tiers. Methodology and the headline quarterly print are open. Detailed institutional data is subscription-priced. LP-track access is gated by accreditation.</p>
+
+    <p><strong>Free — open methodology and headline print:</strong></p>
+    <ul>
+      <li><strong>Methodology paper</strong> (this document): <code>lmmi.b.studio/methodology</code></li>
+      <li><strong>Quarterly index values</strong>: total asset-weighted and equal-weighted LMM AUM, with 95% confidence intervals, published at <a href="https://lmmi.b.studio">lmmi.b.studio</a></li>
+      <li><strong>Index newsletter</strong>: quarterly issue at index publication; market-event commentary between quarters — <a href="https://lmmi.b.studio/#subscribe">subscribe at lmmi.b.studio</a></li>
+    </ul>
+
+    <p><strong>Subscription — institutional data and detail (in development, target Q1 2027):</strong></p>
+    <ul>
+      <li>Full constituent universe and per-holding LMM/UMM classification posterior probabilities</li>
+      <li>Historical CSV (asset-weighted and equal-weighted series, full back-cast)</li>
+      <li>Weekly market commentary at journalist/researcher cadence</li>
+      <li>Quarterly DD-grade brief with CDLI peer comparison</li>
+      <li>Methodology change log with revision-level justification</li>
+    </ul>
+
+    <p>The institutional tier is priced for family offices, fund-of-funds, sell-side analysts, and journalists who need depth beyond the headline print. Pricing and launch timing publish alongside the external IOSCO audit, targeted Q1 2027 (see §07). To be notified, subscribe to the newsletter and indicate institutional interest.</p>
+
+    <p><strong>LP track — free for verified accredited investors:</strong></p>
+    <ul>
+      <li><strong>LMMI Backtester</strong> (<a href="https://backtester.b.studio">backtester.b.studio</a>): apply your own PD, LGD, gross spread, and allocation assumptions to actual Studio b. LMMI historical data</li>
+      <li><strong>Custom backtest scenarios</strong>: methodology-team support for non-standard hypotheses</li>
+      <li><strong>Direct line to Studio b.</strong>: methodology consultation and Fund I diligence support</li>
+      <li>Access gated by Rule 506(c) self-attestation at <a href="https://invest.b.studio">invest.b.studio</a></li>
+    </ul>
+
+    <p>The wasala dbt project (the Studio b. LMMI's full source code) is privately held pending external IOSCO audit, targeted Q1 2027. Replication scripts for all public ingest sources — SEC EDGAR, SBA 7(a), UK Companies House — are available on request at <a href="mailto:invest@b.studio">invest@b.studio</a>. Every quarterly publication is independently reproducible from public source files given the <code>methodology_version</code>, <code>git_sha</code>, and <code>ingest_run_ids</code> recorded in that quarter's <code>lineage.json</code>.</p>
+
+    <p>Questions and methodology feedback: <a href="mailto:invest@b.studio">invest@b.studio</a>.</p>
+  </section>
+
+  <!-- Article footer -->
+  <div class="article-footer">
+    <div class="article-footer-strip">
+      Methodology designed by Kevin Bibelhausen <span class="vm">·</span> Published by Benchmarks, by Studio b<span class="vm">.</span> LLC
+      <br>
+      Version 0.1 <span class="vm">·</span> 2026-05-04 <span class="vm">·</span> lmmi<span class="vm">.</span>b<span class="vm">.</span>studio <span class="vm">·</span> Open <span class="vm">·</span> Free
+    </div>
+    <a href="/" class="article-footer-back">← Back to Studio b. LMMI</a>
+  </div>
+
+</div><!-- /article-wrap -->
+
+<div class="page-footer-strip">
+  <span>Studio b<span class="footer-vm">.</span> LMMI &nbsp;·&nbsp; lmmi<span class="footer-vm">.</span>b<span class="footer-vm">.</span>studio &nbsp;·&nbsp; Methodology v0.1 &nbsp;·&nbsp; Open &nbsp;·&nbsp; Free</span>
+  <span>&copy; 2026 Benchmarks, by Studio b<span class="footer-vm">.</span> LLC</span>
+</div>
+
+</body>
+</html>

@@ -13,117 +13,472 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,900;1,9..144,900&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500;1,9..144,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
     :root {
-      --paper: #F4F1EB;
-      --ink: #0D0D0D;
-      --forest: #1A3328;
-      --vermillion: #D94425;
-      --yolk: #F7D344;
+      --paper:       #F4F1EB;
+      --paper-dk:    #EAE6DC;
+      --ink:         #0D0D0D;
+      --ink-72:      rgba(13,13,13,0.72);
+      --ink-55:      rgba(13,13,13,0.55);
+      --ink-30:      rgba(13,13,13,0.30);
+      --ink-10:      rgba(13,13,13,0.10);
+      --vermillion:  #D94425;
+      --forest:      #1A3328;
+      --forest-72:   rgba(26,51,40,0.72);
+      --stripe-height: 10px;
     }
+
     html { scroll-behavior: smooth; }
-    body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; min-height: 100vh; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Source Serif 4', serif;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
 
-    .stripe { height: 6px; width: 100%; background: repeating-linear-gradient(-45deg, var(--forest) 0, var(--forest) 8px, var(--paper) 8px, var(--paper) 16px); }
+    /* ===== CAUTION STRIPE — forest/paper, hard corners ===== */
+    .stripe {
+      height: var(--stripe-height);
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--forest) 0, var(--forest) 8px,
+        var(--paper)  8px, var(--paper)  16px
+      );
+      border-top: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+    }
 
-    .nav { padding: 1.25rem 4rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(26,51,40,0.1); }
-    .bmark { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.6rem; color: var(--forest); text-decoration: none; letter-spacing: -0.04em; line-height: 1; }
+    /* ===== MASTHEAD — three-element grid ===== */
+    .masthead {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 1.5rem 4rem;
+      border-bottom: 1px solid var(--ink-10);
+    }
+    .bmark {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--ink);
+      letter-spacing: -0.04em;
+      text-decoration: none;
+      line-height: 1;
+    }
     .bmark .dot { color: var(--vermillion); }
-    .nav-right { display: flex; gap: 1.5rem; align-items: center; }
-    .nav-link { font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(26,51,40,0.4); text-decoration: none; transition: color 0.12s; padding: 0.5rem; }
+    .masthead-pubmark {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--ink-55);
+    }
+    .masthead-nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .nav-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-55);
+      text-decoration: none;
+      transition: color 0.12s;
+    }
     .nav-link:hover { color: var(--forest); }
-    .brand-b { text-transform: none; }
-    .brand-dot { color: var(--vermillion); }
+    .nav-link-accent { color: var(--vermillion); }
+    .nav-link-accent:hover { color: var(--ink); }
 
-    .hero { padding: 6rem 4rem 5rem; max-width: 1100px; }
-    .firm-label { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(26,51,40,0.5); margin-bottom: 2rem; }
-    .firm-label a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(26,51,40,0.25); transition: color 0.12s, border-color 0.12s; }
-    .firm-label a:hover { color: var(--forest); border-bottom-color: var(--forest); }
-    h1 { font-family: 'Fraunces', serif; font-weight: 900; font-style: italic; font-size: clamp(2.8rem, 5.5vw, 5rem); line-height: 0.95; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 1.75rem; max-width: 16ch; }
-    h1 em { color: var(--forest); }
-    .hero-body { font-size: 1.05rem; line-height: 1.65; color: rgba(13,13,13,0.7); max-width: 580px; }
+    /* ===== TICKER — dark paper panel ===== */
+    .ticker-wrap {
+      background: var(--paper-dk);
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding: 1.5rem 4rem;
+    }
+    .ticker-inner {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      flex-wrap: wrap;
+    }
+    .ticker-label {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--forest);
+      font-size: 0.62rem;
+      margin-right: 0.5rem;
+    }
+    .ticker-period { color: var(--forest); margin-right: 1.25rem; }
+    .ticker-sep { color: var(--ink-30); margin: 0 0.85rem; }
+    .ticker-metric-label { color: var(--ink-55); font-weight: 500; margin-right: 0.4rem; }
+    .ticker-metric-val { color: var(--forest); font-feature-settings: "tnum"; }
+    .ticker-badge {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.52rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--vermillion);
+      border: 1px solid var(--vermillion);
+      padding: 0.2rem 0.5rem;
+    }
+    .ticker-foot {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.04em;
+      color: var(--ink-55);
+      margin-top: 0.6rem;
+      line-height: 1.7;
+    }
 
-    /* Ticker — same component as benchmarks.b.studio */
-    .ticker { background: var(--forest); color: var(--paper); padding: 0 4rem; }
-    .ticker-line { display: flex; align-items: center; padding: 0.6rem 0; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; flex-wrap: wrap; }
-    .ticker-sep { margin: 0 0.65rem; opacity: 0.4; }
-    .ticker-label { opacity: 0.6; font-weight: 500; }
-    .ticker-tag { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(247,211,68,0.7); }
-    .ticker-foot { font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; letter-spacing: 0.04em; color: rgba(244,241,235,0.4); padding: 0 0 0.55rem; line-height: 1.7; }
+    /* ===== HERO ===== */
+    .hero {
+      padding: 6rem 4rem 5rem;
+      max-width: 1100px;
+      border-bottom: 1px solid var(--ink-10);
+    }
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--vermillion);
+      margin-bottom: 2rem;
+    }
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-style: normal;
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      line-height: 0.95;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 2rem;
+      max-width: 16ch;
+      font-variation-settings: "opsz" 144;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--forest);
+      font-weight: 500;
+    }
+    .hero-lede {
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.2rem;
+      line-height: 1.65;
+      color: var(--ink-72);
+      max-width: 58ch;
+      margin-bottom: 2.5rem;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--forest);
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--forest);
+      padding-bottom: 0.2rem;
+      transition: color 0.12s, border-color 0.12s;
+    }
+    .hero-cta:hover { color: var(--vermillion); border-color: var(--vermillion); }
 
-    .subscribe { padding: 4rem; background: #FFFFFF; border-top: 3px solid var(--forest); border-bottom: 3px solid var(--forest); position: relative; }
-    .subscribe::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, var(--forest) 0, var(--forest) 3px, transparent 3px, transparent 18px); opacity: 0.04; pointer-events: none; }
-    .subscribe-inner { max-width: 640px; position: relative; }
-    .subscribe-kicker { font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(26,51,40,0.45); margin-bottom: 1rem; }
-    .subscribe-headline { font-family: 'Fraunces', serif; font-weight: 900; font-style: italic; font-size: clamp(1.6rem, 3vw, 2.25rem); line-height: 1.05; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1rem; }
-    .subscribe-body { font-size: 0.92rem; line-height: 1.65; color: rgba(13,13,13,0.7); margin-bottom: 1.5rem; }
+    /* ===== SECTION SHARED ===== */
+    .section-body { padding: 5rem 4rem; border-bottom: 1px solid var(--ink-10); }
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--vermillion);
+      margin-bottom: 0.6rem;
+    }
+    .section-rule { border: none; border-top: 1px solid var(--ink-10); margin: 3rem 0; }
 
+    /* ===== WHY — forest panel ===== */
+    .why {
+      background: var(--forest);
+      color: var(--paper);
+      padding: 5rem 4rem;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+    }
+    .why-inner { max-width: 760px; }
+    .why-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: rgba(244,241,235,0.5);
+      margin-bottom: 1.5rem;
+    }
+    .why h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-style: normal;
+      font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--paper);
+      margin-bottom: 1.75rem;
+      font-variation-settings: "opsz" 144;
+    }
+    .why p {
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: rgba(244,241,235,0.82);
+      margin-bottom: 1.1rem;
+    }
+    .why p:last-of-type { margin-bottom: 0; }
+    .why em { font-style: italic; color: rgba(244,241,235,0.95); font-weight: 600; }
+    .why a { color: rgba(244,241,235,0.75); border-bottom: 1px solid rgba(244,241,235,0.3); text-decoration: none; transition: color 0.12s; }
+    .why a:hover { color: var(--paper); }
+    .why-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(244,241,235,0.7);
+      text-decoration: none;
+      border-bottom: 1.5px solid rgba(244,241,235,0.3);
+      padding-bottom: 0.2rem;
+      margin-top: 2rem;
+      transition: color 0.12s, border-color 0.12s;
+      display: block;
+    }
+    .why-cta:hover { color: var(--paper); border-color: var(--paper); }
+
+    /* ===== SUBSCRIBE ===== */
+    .subscribe {
+      padding: 5rem 4rem;
+      background: var(--paper-dk);
+      border-bottom: 1px solid var(--ink);
+    }
+    .subscribe-inner { max-width: 640px; }
+    .subscribe-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-55);
+      margin-bottom: 1rem;
+    }
+    .subscribe h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(1.6rem, 3vw, 2.25rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 1rem;
+      font-variation-settings: "opsz" 60;
+    }
+    .subscribe-body {
+      font-family: 'Source Serif 4', serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--ink-72);
+      margin-bottom: 2rem;
+    }
     .subscribe-form { display: flex; flex-direction: column; gap: 0.85rem; }
-    .input-row { display: flex; align-items: center; border-bottom: 1.5px solid rgba(26,51,40,0.25); padding-bottom: 0.65rem; transition: border-color 0.15s; }
+    .input-row {
+      display: flex;
+      align-items: center;
+      border-bottom: 1.5px solid var(--ink-30);
+      padding-bottom: 0.65rem;
+      transition: border-color 0.15s;
+    }
     .input-row:focus-within { border-bottom-color: var(--forest); }
-    .input-row .prompt { font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: var(--vermillion); margin-right: 0.6rem; user-select: none; }
-    .input-row input { flex: 1; background: none; border: none; outline: none; font-family: 'JetBrains Mono', monospace; font-size: 0.92rem; color: var(--ink); }
-    .input-row input::placeholder { color: rgba(13,13,13,0.3); }
-    .submit-btn { display: flex; justify-content: space-between; align-items: center; background: var(--vermillion); color: #FFFFFF; border: none; padding: 0.95rem 1.15rem; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: background 0.1s; }
+    .input-row .prompt {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      color: var(--vermillion);
+      margin-right: 0.6rem;
+      user-select: none;
+    }
+    .input-row input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+    .input-row input::placeholder { color: var(--ink-30); }
+    .submit-btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--vermillion);
+      color: #FFFFFF;
+      border: none;
+      padding: 0.95rem 1.15rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
     .submit-btn:hover { background: #C43820; }
     .submit-btn[disabled] { opacity: 0.6; cursor: wait; }
-    .form-status { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; line-height: 1.6; color: rgba(26,51,40,0.7); min-height: 1.1em; letter-spacing: 0.04em; }
+    .form-status {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      line-height: 1.6;
+      color: var(--forest-72);
+      min-height: 1.1em;
+      letter-spacing: 0.04em;
+    }
     .form-status.error { color: var(--vermillion); }
-    .form-note { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: rgba(13,13,13,0.35); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.5rem; }
+    .form-note {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--ink-30);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+    }
 
-    .why { padding: 4rem; background: var(--forest); color: var(--paper); }
-    .why-inner { max-width: 760px; }
-    .why-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,241,235,0.5); margin-bottom: 1.25rem; }
-    .why h2 { font-family: 'Fraunces', serif; font-weight: 900; font-style: italic; font-size: clamp(1.8rem, 3.5vw, 2.6rem); line-height: 1.05; letter-spacing: -0.02em; color: var(--paper); margin-bottom: 1.5rem; }
-    .why p { font-size: 1rem; line-height: 1.7; color: rgba(244,241,235,0.8); margin-bottom: 1rem; }
-    .why p:last-child { margin-bottom: 0; }
-    .why em { font-style: italic; color: var(--yolk); }
-    .archive { padding: 4rem; }
-    .section-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(26,51,40,0.4); margin-bottom: 2rem; }
-    .archive-empty { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.4rem; color: rgba(13,13,13,0.7); margin-bottom: 1rem; }
-    .archive-empty-body { font-size: 0.92rem; line-height: 1.65; color: rgba(13,13,13,0.55); max-width: 540px; }
+    /* ===== ARCHIVE ===== */
+    .archive { padding: 5rem 4rem; }
+    .archive-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--ink-30);
+      margin-bottom: 2rem;
+    }
+    .archive-empty {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 1.45rem;
+      color: var(--ink-72);
+      margin-bottom: 0.85rem;
+    }
+    .archive-empty-body {
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--ink-55);
+      max-width: 560px;
+    }
 
-    footer { padding: 3rem 4rem 2rem; border-top: 1px solid rgba(26,51,40,0.1); display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; }
-    .footer-col h4 { font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(26,51,40,0.4); margin-bottom: 0.75rem; }
-    .footer-col a { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; color: rgba(13,13,13,0.6); text-decoration: none; padding: 0.25rem 0; transition: color 0.12s; }
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 3rem 4rem 2rem;
+      border-top: 1px solid var(--ink-10);
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+    }
+    .footer-col h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-30);
+      margin-bottom: 0.85rem;
+    }
+    .footer-col a {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-55);
+      text-decoration: none;
+      padding: 0.25rem 0;
+      transition: color 0.12s;
+    }
     .footer-col a:hover { color: var(--forest); }
-    .footer-bottom { padding: 1.25rem 4rem 2rem; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(13,13,13,0.3); }
+    .footer-strip {
+      padding: 1.25rem 4rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-30);
+      border-top: 1px solid var(--ink-10);
+    }
+    .footer-vm { color: var(--vermillion); }
 
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .nav, .ticker { padding: 1rem 1.5rem; }
+      .masthead { padding: 1rem 1.5rem; flex-direction: column; gap: 0.85rem; }
+      .masthead-pubmark { display: none; }
+      .ticker-wrap { padding: 1rem 1.5rem; }
       .hero { padding: 4rem 1.5rem 3rem; }
-      .subscribe, .archive { padding: 3rem 1.5rem; }
+      .why, .section-body, .subscribe, .archive { padding: 3.5rem 1.5rem; }
       footer { grid-template-columns: 1fr; padding: 3rem 1.5rem 1.5rem; }
-      .footer-bottom { padding: 1rem 1.5rem 2rem; flex-direction: column; gap: 0.75rem; align-items: flex-start; }
+      .footer-strip { padding: 1rem 1.5rem 2rem; flex-direction: column; gap: 0.75rem; align-items: flex-start; }
+      .masthead-nav { flex-wrap: wrap; gap: 1rem; }
     }
   </style>
 </head>
 <body>
 
+<!-- Caution stripe: forest/paper, 10px, hard corners -->
 <div class="stripe"></div>
 
-<nav class="nav">
+<!-- Masthead: b. mark · publication name · nav -->
+<header class="masthead">
   <a href="/" class="bmark">b<span class="dot">.</span></a>
-  <div class="nav-right">
-    <a href="https://b.studio" class="nav-link">← b<span class="brand-dot">.</span>studio</a>
+  <span class="masthead-pubmark">Studio b. LMMI &nbsp;·&nbsp; Lower Middle Market Direct Lending Index</span>
+  <nav class="masthead-nav">
+    <a href="https://b.studio" class="nav-link">← b<span style="color:var(--vermillion)">.</span>studio</a>
+    <a href="/methodology" class="nav-link">Methodology</a>
     <a href="#why" class="nav-link">Why</a>
     <a href="#archive" class="nav-link">Archive</a>
-    <a href="#subscribe" class="nav-link">Subscribe →</a>
-  </div>
-</nav>
+    <a href="#subscribe" class="nav-link nav-link-accent">Subscribe →</a>
+  </nav>
+</header>
 
-<div class="ticker" id="dli-ticker">
-  <div class="ticker-line">
-    <span>LMMI</span>
+<!-- Ticker block: live index data (seed: Q1 2025 / 625 bps / 78%) -->
+<div class="ticker-wrap" id="dli-ticker">
+  <div class="ticker-inner">
+    <span class="ticker-label">LMMI</span>
+    <span class="ticker-period dli-period">Q1 2025</span>
     <span class="ticker-sep">·</span>
-    <span class="dli-period">Q1 2025</span>
-    <span class="ticker-sep">·</span>
-    <span><span class="ticker-label">US LMM Spread</span>&nbsp;<span class="dli-spread">625 bps</span></span>
+    <span><span class="ticker-metric-label">US LMM Spread</span><span class="ticker-metric-val dli-spread">625 bps</span></span>
     <span class="ticker-sep dli-recovery-sep">·</span>
-    <span class="dli-metric-uk"><span class="ticker-label">UK LMM Recovery</span>&nbsp;<span class="dli-recovery">78%</span></span>
-    <span class="ticker-tag">Live index</span>
+    <span class="dli-metric-uk"><span class="ticker-metric-label">UK LMM Recovery</span><span class="ticker-metric-val dli-recovery">78%</span></span>
+    <span class="ticker-badge">Live index</span>
   </div>
   <div class="ticker-foot">
     Spread — asset-weighted yield over 3M SOFR, current quarter, eligible LMM BDC universe. &nbsp;&nbsp;
@@ -131,26 +486,31 @@
   </div>
 </div>
 
+<!-- Hero -->
 <section class="hero">
-  <p class="firm-label">Studio <span class="brand-b">b<span class="brand-dot">.</span></span> LMMI · Lower Middle Market Direct Lending Index</p>
+  <p class="hero-eyebrow">Studio b. LMMI · Index Brief</p>
   <h1>The only open index for the lower <em>middle market.</em></h1>
-  <p class="hero-body">Quarterly spread, structure, and recovery data across the global lower middle market — sourced from SBA 7(a), Companies House workouts, and the LMM-eligible BDC universe. Market event commentary as it happens. We publish it because the benchmarks didn't exist — and LPs deserve the data before they commit capital.</p>
+  <p class="hero-lede">Quarterly spread, structure, and recovery data across the global lower middle market — sourced from SBA 7(a), Companies House workouts, and the LMM-eligible BDC universe. Market event commentary as it happens. We publish it because the benchmarks didn't exist — and LPs deserve the data before they commit capital.</p>
+  <a href="/methodology" class="hero-cta">Read the full methodology <span>→</span></a>
 </section>
 
+<!-- Why we built this -->
 <section class="why" id="why">
   <div class="why-inner">
-    <p class="why-eyebrow">Why we built this</p>
+    <p class="why-eyebrow">§01 · Why we built this</p>
     <h2>The open index the segment didn't have.</h2>
     <p>Cliffwater's CDLI-LMM, launched September 2024, is the institutional benchmark for the segment — borrowers averaging less than $40M EBITDA, BDC-universe, US-only, subscription-only. It's the right comparison for Studio b. LMMI to be measured against.</p>
     <p>Studio b. LMMI takes a different access model on a partially-overlapping universe. <em>Methodology is open and published.</em> The headline quarterly print and weekly market commentary are free. Detailed institutional data — full constituent universe, historical CSV, DD-grade brief — will be subscription-priced for researchers, journalists, and allocators. Verified accredited LPs access the backtester through <a href="https://invest.b.studio">invest.b.studio</a>.</p>
     <p>Coverage extends beyond the BDC universe. SBA 7(a) loan data captures sub-BDC origination volume. UK Companies House workout records anchor cross-jurisdictional recovery rates. The methodology paper, the universe construction rules, and the calibration scope are all on <a href="/methodology">lmmi.b.studio/methodology</a>.</p>
+    <a href="/methodology" class="why-cta">Read the full methodology paper →</a>
   </div>
 </section>
 
+<!-- Subscribe -->
 <section class="subscribe" id="subscribe">
   <div class="subscribe-inner">
     <div class="subscribe-kicker">Subscribe — free</div>
-    <h2 class="subscribe-headline">Get the index when it updates. Plus market events as they happen.</h2>
+    <h2>Get the index when it updates. Plus market events as they happen.</h2>
     <p class="subscribe-body">Studio b. LMMI publishes quarterly with the index update. Between quarters, you'll hear from us when a market event reshapes the picture — not on a calendar.</p>
     <form id="subscribe-form" class="subscribe-form" novalidate>
       <div class="input-row">
@@ -167,34 +527,38 @@
   </div>
 </section>
 
+<!-- Archive -->
 <section class="archive" id="archive">
-  <p class="section-eyebrow">Archive</p>
+  <p class="archive-eyebrow">Archive</p>
   <p class="archive-empty">Q1 2026 issue — in production.</p>
   <p class="archive-empty-body">Studio b. LMMI is repositioning. Subscribe above to get the next index issue when it ships, and the live ticker above will reflect every quarterly update.</p>
 </section>
 
+<!-- Footer -->
 <footer>
   <div class="footer-col">
-    <h4>Studio <span class="brand-b">b<span class="brand-dot">.</span></span> LMMI</h4>
+    <h4>Studio b<span class="footer-vm">.</span> LMMI</h4>
     <a href="#subscribe">Subscribe</a>
     <a href="#why">Why we built this</a>
     <a href="#archive">Archive</a>
+    <a href="/methodology">Methodology</a>
   </div>
   <div class="footer-col">
-    <h4>Other newsletter</h4>
-    <a href="https://markdown.b.studio">Markdown, by Studio <span class="brand-b">b<span class="brand-dot">.</span></span></a>
+    <h4>Other surfaces</h4>
+    <a href="https://markdown.b.studio">Markdown, by Studio b<span class="footer-vm">.</span></a>
+    <a href="https://invest.b.studio">invest<span class="footer-vm">.</span>b<span class="footer-vm">.</span>studio</a>
   </div>
   <div class="footer-col">
-    <h4>Studio <span class="brand-b">b<span class="brand-dot">.</span></span></h4>
-    <a href="https://b.studio">b<span class="brand-dot">.</span>studio</a>
-    <a href="mailto:invest@b.studio">invest@b<span class="brand-dot">.</span>studio</a>
-    <a href="mailto:hello@b.studio">hello@b<span class="brand-dot">.</span>studio</a>
+    <h4>Studio b<span class="footer-vm">.</span></h4>
+    <a href="https://b.studio">b<span class="footer-vm">.</span>studio</a>
+    <a href="mailto:invest@b.studio">invest@b<span class="footer-vm">.</span>studio</a>
+    <a href="mailto:hello@b.studio">hello@b<span class="footer-vm">.</span>studio</a>
   </div>
 </footer>
 
-<div class="footer-bottom">
-  <span>Studio <span class="brand-b">b<span class="brand-dot">.</span></span> LMMI · Published by Kevin Bibelhausen</span>
-  <span>&copy; 2026 Studio <span class="brand-b">b<span class="brand-dot">.</span></span> Consulting, LLC</span>
+<div class="footer-strip">
+  <span>Studio b<span class="footer-vm">.</span> LMMI &nbsp;·&nbsp; lmmi<span class="footer-vm">.</span>b<span class="footer-vm">.</span>studio &nbsp;·&nbsp; Methodology v0.1 &nbsp;·&nbsp; Open &nbsp;·&nbsp; Free</span>
+  <span>&copy; 2026 Benchmarks, by Studio b<span class="footer-vm">.</span> LLC</span>
 </div>
 
 <script>
