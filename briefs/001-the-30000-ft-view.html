@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Where the Alpha Lives in Lower Middle Market Credit — Studio b. LMMI Brief 001</title>
+  <meta name="description" content="A 30,000-foot view of what Studio b. LMMI is, what it measures, and what v0.1 actually delivers. The gap between SBA and BDC coverage is where LMM alpha lives — and no public benchmark has ever measured it.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Studio b. LMMI">
+  <meta property="og:title" content="Where the Alpha Lives in Lower Middle Market Credit">
+  <meta property="og:description" content="The gap between the SBA floor and the BDC universe is the most durable spread-premium corner of private credit in the country — and it has no public benchmark. Studio b. LMMI exists to fill it.">
+  <meta property="og:url" content="https://lmmi.b.studio/briefs/001-the-30000-ft-view">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500;1,9..144,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --paper:       #F4F1EB;
+      --paper-dk:    #EAE6DC;
+      --ink:         #0D0D0D;
+      --ink-72:      rgba(13,13,13,0.72);
+      --ink-55:      rgba(13,13,13,0.55);
+      --ink-30:      rgba(13,13,13,0.30);
+      --ink-10:      rgba(13,13,13,0.10);
+      --vermillion:  #D94425;
+      --forest:      #1A3328;
+      --forest-72:   rgba(26,51,40,0.72);
+      --stripe-height: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Source Serif 4', serif;
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+
+    /* ===== CAUTION STRIPE ===== */
+    .stripe {
+      height: var(--stripe-height);
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--forest) 0, var(--forest) 8px,
+        var(--paper)  8px, var(--paper)  16px
+      );
+      border-top: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+    }
+
+    /* ===== MASTHEAD ===== */
+    .masthead {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 1.5rem 4rem;
+      border-bottom: 1px solid var(--ink-10);
+    }
+    .bmark {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--ink);
+      letter-spacing: -0.04em;
+      text-decoration: none;
+      line-height: 1;
+    }
+    .bmark .dot { color: var(--vermillion); }
+    .masthead-pubmark {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--ink-55);
+    }
+    .masthead-nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .nav-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-55);
+      text-decoration: none;
+      transition: color 0.12s;
+    }
+    .nav-link:hover { color: var(--forest); }
+
+    /* ===== ARTICLE LAYOUT ===== */
+    .article-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 4rem;
+    }
+
+    /* ===== ARTICLE HEADER ===== */
+    .article-header {
+      padding: 5rem 0 3.5rem;
+      border-bottom: 1px solid var(--ink-10);
+    }
+    .article-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--vermillion);
+      margin-bottom: 1.5rem;
+    }
+    .article-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-style: normal;
+      font-size: clamp(2.4rem, 5vw, 3.75rem);
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+      font-variation-settings: "opsz" 144;
+    }
+    .article-sub {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1.35rem;
+      line-height: 1.45;
+      color: var(--forest);
+      margin-bottom: 2rem;
+      font-variation-settings: "opsz" 60;
+    }
+    .article-meta {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .article-meta-item {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--ink-55);
+    }
+    .article-meta-item .vm { color: var(--vermillion); }
+    .article-meta-sep { color: var(--ink-30); font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; }
+
+    /* ===== ARTICLE INTRO ===== */
+    .article-intro {
+      padding: 3rem 0 2rem;
+      border-bottom: 1px solid var(--ink-10);
+    }
+    .article-intro p {
+      font-size: 1.15rem;
+      line-height: 1.75;
+      color: var(--ink-72);
+      margin-bottom: 1rem;
+    }
+    .article-intro p:last-child { margin-bottom: 0; }
+
+    /* ===== SECTION STRUCTURE ===== */
+    .article-section {
+      padding: 3.5rem 0;
+      border-bottom: 1px solid var(--ink-10);
+    }
+    .article-section:last-of-type { border-bottom: none; }
+
+    .sec-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--vermillion);
+      margin-bottom: 0.65rem;
+      display: block;
+    }
+    .article-section h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-style: italic;
+      font-size: clamp(1.55rem, 3vw, 2rem);
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-bottom: 2rem;
+      font-variation-settings: "opsz" 60;
+    }
+
+    /* ===== BODY COPY ===== */
+    .article-section p {
+      font-size: 1.05rem;
+      line-height: 1.78;
+      color: var(--ink-72);
+      margin-bottom: 1.1rem;
+      max-width: 68ch;
+    }
+    .article-section p:last-child { margin-bottom: 0; }
+    .article-section strong { color: var(--ink); font-weight: 600; }
+    .article-section em { font-style: italic; }
+    .article-section a {
+      color: var(--forest);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(26,51,40,0.3);
+      transition: color 0.12s, border-color 0.12s;
+    }
+    .article-section a:hover { color: var(--vermillion); border-color: var(--vermillion); }
+
+    /* ===== ANCHOR LIST (multi-anchor section) ===== */
+    .anchor-list {
+      margin: 1.5rem 0 1.5rem 0;
+      padding: 0;
+      list-style: none;
+      max-width: 66ch;
+    }
+    .anchor-list li {
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--ink-72);
+      padding: 1rem 0 1rem 1.5rem;
+      border-bottom: 1px solid var(--ink-10);
+      position: relative;
+    }
+    .anchor-list li:first-child { border-top: 1px solid var(--ink-10); }
+    .anchor-list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--vermillion);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+    }
+    .anchor-list li strong {
+      color: var(--ink);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    /* ===== PULL QUOTE ===== */
+    blockquote.pull-quote {
+      margin: 3rem 0;
+      padding: 1.75rem 2rem 1.75rem 2.25rem;
+      border-left: 4px solid var(--vermillion);
+      background: rgba(26,51,40,0.04);
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1.45rem;
+      line-height: 1.4;
+      color: var(--forest);
+      max-width: 62ch;
+      font-variation-settings: "opsz" 60;
+    }
+    blockquote.pull-quote cite {
+      display: block;
+      margin-top: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-style: normal;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--ink-55);
+    }
+
+    /* ===== POINTERS SECTION ===== */
+    .pointers-section {
+      padding: 3.5rem 0 4rem;
+    }
+    .pointers-list {
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0 0;
+    }
+    .pointers-list li {
+      padding: 1.25rem 0;
+      border-top: 1px solid var(--ink-10);
+    }
+    .pointers-list li:last-child { border-bottom: 1px solid var(--ink-10); }
+    .pointer-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--vermillion);
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+    .pointer-desc {
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.98rem;
+      line-height: 1.65;
+      color: var(--ink-72);
+      margin-bottom: 0.5rem;
+    }
+    .pointer-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--forest);
+      text-decoration: none;
+      border-bottom: 1.5px solid rgba(26,51,40,0.3);
+      padding-bottom: 0.1rem;
+      transition: color 0.12s, border-color 0.12s;
+    }
+    .pointer-link:hover { color: var(--vermillion); border-color: var(--vermillion); }
+
+    /* ===== HR ===== */
+    hr.section-rule {
+      border: none;
+      border-top: 1px solid var(--ink-10);
+      margin: 2.5rem 0;
+    }
+
+    /* ===== ARTICLE FOOTER ===== */
+    .article-footer {
+      padding: 3.5rem 0 4rem;
+      border-top: 1px solid var(--ink-10);
+      margin-top: 1rem;
+    }
+    .article-footer-strip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--ink-30);
+      line-height: 1.8;
+    }
+    .article-footer-strip .vm { color: var(--vermillion); }
+    .article-footer-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--forest);
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--forest);
+      padding-bottom: 0.2rem;
+      transition: color 0.12s, border-color 0.12s;
+    }
+    .article-footer-back:hover { color: var(--vermillion); border-color: var(--vermillion); }
+
+    /* ===== PAGE FOOTER ===== */
+    .page-footer-strip {
+      padding: 1.25rem 4rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-30);
+      border-top: 1px solid var(--ink-10);
+    }
+    .footer-vm { color: var(--vermillion); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .masthead { padding: 1rem 1.5rem; flex-direction: column; gap: 0.75rem; }
+      .masthead-pubmark { display: none; }
+      .masthead-nav { flex-wrap: wrap; gap: 0.85rem; }
+      .article-wrap { padding: 0 1.5rem; }
+      .article-header { padding: 3.5rem 0 2.5rem; }
+      .article-section { padding: 2.5rem 0; }
+      .pointers-section { padding: 2.5rem 0 3rem; }
+      .page-footer-strip { padding: 1rem 1.5rem 2rem; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Caution stripe: forest/paper, 10px, hard corners -->
+<div class="stripe"></div>
+
+<!-- Masthead -->
+<header class="masthead">
+  <a href="https://b.studio/" class="bmark">b<span class="dot">.</span></a>
+  <span class="masthead-pubmark">Studio b<span style="color:var(--vermillion)">.</span> LMMI &nbsp;·&nbsp; Lower Middle Market Direct Lending Index</span>
+  <nav class="masthead-nav">
+    <a href="/" class="nav-link">← Index</a>
+    <a href="/methodology" class="nav-link">Methodology</a>
+    <a href="/#subscribe" class="nav-link">Subscribe</a>
+    <a href="https://invest.b.studio" class="nav-link">invest<span style="color:var(--vermillion)">.</span>b<span style="color:var(--vermillion)">.</span>studio</a>
+  </nav>
+</header>
+
+<!-- Article -->
+<div class="article-wrap">
+
+  <header class="article-header">
+    <p class="article-kicker">Brief 001 &nbsp;·&nbsp; Inaugural &nbsp;·&nbsp; Studio b. LMMI</p>
+    <h1 class="article-title">Where the Alpha Lives in Lower Middle Market Credit</h1>
+    <p class="article-sub">A 30,000-foot view of what Studio b. LMMI is, what it measures, and what v0.1 actually delivers.</p>
+    <div class="article-meta">
+      <span class="article-meta-item">Brief <span class="vm">·</span> 001</span>
+      <span class="article-meta-sep">·</span>
+      <span class="article-meta-item">2026-05-05</span>
+      <span class="article-meta-sep">·</span>
+      <span class="article-meta-item">Studio b<span class="vm">.</span> LMMI</span>
+      <span class="article-meta-sep">·</span>
+      <span class="article-meta-item">~950 words</span>
+    </div>
+  </header>
+
+  <!-- Lede -->
+  <div class="article-intro">
+    <p>There is a segment of U.S. private credit that existing benchmarks have never touched directly: companies with $5–25M EBITDA. Too large for SBA programs. Too small for the Business Development Companies that define what most people mean when they say "lower middle market." The gap between the SBA floor and the BDC universe is roughly the most durable spread-premium corner of private credit in the country — and it has no public benchmark.</p>
+    <p>That's the gap Studio b. LMMI exists to fill.</p>
+  </div>
+
+  <!-- §01 -->
+  <section class="article-section" id="s01">
+    <span class="sec-eyebrow">§01 · Why nothing covers it</span>
+    <h2>Why nothing covers it</h2>
+
+    <p>The SBA 7(a) program captures small-business lending at its most granular — individual loans to companies well below $5M EBITDA, with public FOIA microdata on origination volume, charge-off curves, and sector distribution. It is the floor of LMM credit, observable and free.</p>
+
+    <p>Above it, Business Development Companies file quarterly Schedules of Investments with the SEC. ARCC, MAIN, GBDC, and the rest of the public BDC universe document their holdings — fair values, interest rates, non-accrual flags — in 10-K and 10-Q filings. Existing institutional benchmarks are built from this data: rigorous, subscription-only, limited to the observable BDC universe.</p>
+
+    <p>What falls between the two? Companies with $5–25M EBITDA — the actual lower middle market by most practitioners' definitions — appear in neither dataset. BDCs target this segment in their fund mandates, but their average realized borrower sits above it. No single public source maps to the $5–25M band directly.</p>
+
+    <p>That's not a gap that exists because nobody noticed. It exists because it's hard. The segment is observable only by inference from boundary data — and inference requires a model.</p>
+
+    <p>LMMI is that model. The methodology is open because the decision logic has to be auditable — LPs verify the model that designs the strategy, not just cite the headline number. The backtester at <a href="https://invest.b.studio">invest.b.studio</a> is the proof artifact: apply your own PD, LGD, and spread assumptions to 19 years of historical data and see whether the thesis holds.</p>
+  </section>
+
+  <!-- §02 -->
+  <section class="article-section" id="s02">
+    <span class="sec-eyebrow">§02 · The multi-anchor approach</span>
+    <h2>The multi-anchor approach</h2>
+
+    <p>Studio b. LMMI is not an observation index. It is a <strong>multi-anchor interpolated index</strong>. The segment that matters most — $5–25M EBITDA — cannot be measured from any single data source. We model it instead, using three boundary anchors that together bracket the space:</p>
+
+    <ul class="anchor-list">
+      <li>
+        <strong>Lower anchor — SBA 7(a)</strong>
+        The floor of U.S. small-business credit. Charge-off curves, default behavior, sector distribution for sub-$5M EBITDA borrowers. Implementation pending v0.x.
+      </li>
+      <li>
+        <strong>Upper anchor — BDC universe</strong>
+        The observable ceiling of LMM direct lending. SEC-registered funds filing quarterly. 10 adapters in the current universe: ARCC, GBDC, MAIN, PSEC, FSK, HTGC, PRSP, TCRD, BXSL, OBDE — roughly 85% of public BDC AUM by fair value. This is what v0.1 implements today.
+      </li>
+      <li>
+        <strong>Cross-jurisdictional recovery anchor — UK Companies House</strong>
+        Administration and liquidation records for a structurally comparable small-to-mid-market lending segment. Provides a cross-jurisdictional reference for loss-given-default estimation that U.S.-only sources cannot supply. Implementation pending v0.x.
+      </li>
+      <li>
+        <strong>The modeled middle — $5–25M EBITDA</strong>
+        Synthesized from the three anchors via an interpolation model. This is the headline LMMI series — the credit-conditions estimate for the segment derived from the boundary observations. The methodology is open: construction rules, weighting math, calibration scope, and data lineage are all published at <a href="/methodology">lmmi.b.studio/methodology</a>.
+      </li>
+    </ul>
+
+    <blockquote class="pull-quote">
+      The model is the product. We observe the boundaries; we model the segment between; we invest where the model says alpha lives.
+      <cite>— Studio b. LMMI, Brief 001</cite>
+    </blockquote>
+  </section>
+
+  <!-- §03 -->
+  <section class="article-section" id="s03">
+    <span class="sec-eyebrow">§03 · What v0.1 actually delivers</span>
+    <h2>What v0.1 actually delivers</h2>
+
+    <p>v0.1 is the BDC anchor. Nothing more, nothing less — and the <a href="/methodology">methodology paper</a> says so explicitly.</p>
+
+    <p>What that means in practice: the current index tracks LMM-classified AUM across the eligible BDC universe, quarterly, back to 2006. Each holding in each BDC's Schedule of Investments runs through a three-layer Bayesian classifier that estimates its probability of being a genuine LMM credit. The headline series is the expected-value aggregation across all eligible holdings — asset-weighted, with 95% confidence bands.</p>
+
+    <p>This is the upper band of the segment, not the segment itself. It is an honest foundation. The SBA anchor comes next, then the Companies House anchor, then the interpolation model that synthesizes them into the modeled middle. Each version of the index adds an anchor or refines the model. The version-by-version roadmap is documented in the methodology paper at §07.</p>
+
+    <p>What v0.1 is not: a total-return series, a complete multi-anchor index, or a claim about private BDC or CLO activity. It is the observable upper band, measured rigorously, published openly. The live observation window runs 2006–2025 (19 years). A synthetic extension back to approximately 1992 exists, calibrated via SBA charge-off rates — it is disclosed explicitly as model-implied wherever it appears.</p>
+
+    <p>The model feeds the fund's strategy directly. Studio b. LMM Bridge Fund I is designed around what the model identifies as the durable spread-premium zone in the $5–25M EBITDA band. Fund returns, in turn, refine the model. The open methodology is auditable decision logic — LPs verify the model that designs the strategy, not just take our word for the thesis.</p>
+  </section>
+
+  <!-- §04 -->
+  <section class="article-section" id="s04">
+    <span class="sec-eyebrow">§04 · Why the methodology is open</span>
+    <h2>Why the methodology is open</h2>
+
+    <p>Every institutional credit benchmark with real coverage is subscription-only. That is the default access model for the segment.</p>
+
+    <p>Studio b. LMMI publishes the construction rules. The universe selection criteria, the classification signals, the weighting math, the calibration sample size, the known classification uncertainty at the $40–60M EBITDA boundary — all of it is on <a href="/methodology">lmmi.b.studio/methodology</a>.</p>
+
+    <p>The open methodology is not charity. It is the basis for being taken seriously. An LP doing diligence on a fund that uses LMMI data in its thesis needs to verify the methodology, not just cite it. A sell-side analyst benchmarking a client's portfolio needs to understand what the index does and doesn't claim. A journalist writing about private credit spread compression needs to know whether the data holds up.</p>
+
+    <p>The free-and-open tier is the quarterly headline print and the methodology paper. The institutional-data subscription — full constituent universe, historical CSV, weekly commentary, DD-grade brief — targets the researchers, journalists, and family offices who need depth beyond the headline. That tier is in development, targeted alongside the IOSCO external audit in Q1 2027.</p>
+  </section>
+
+  <!-- Pointers -->
+  <div class="pointers-section" id="pointers">
+    <span class="sec-eyebrow">Pointers</span>
+
+    <ul class="pointers-list">
+      <li>
+        <span class="pointer-label">Methodology paper</span>
+        <p class="pointer-desc">Rigorous technical detail — universe construction, classification rules, validation gates, governance, reproducibility, and access tiers. Full documentation of everything above and more.</p>
+        <a href="/methodology" class="pointer-link">lmmi.b.studio/methodology →</a>
+      </li>
+      <li>
+        <span class="pointer-label">LP track — the backtester</span>
+        <p class="pointer-desc">Verified accredited LPs apply their own PD, LGD, gross spread, and allocation assumptions to actual Studio b. LMMI historical data. Studio b. does not send a deck — it shares access to the tool. Free, gated by Rule 506(c) self-attestation.</p>
+        <a href="https://invest.b.studio" class="pointer-link">invest.b.studio →</a>
+      </li>
+      <li>
+        <span class="pointer-label">Subscribe — free</span>
+        <p class="pointer-desc">Quarterly index prints and market-event commentary. Free.</p>
+        <a href="/#subscribe" class="pointer-link">lmmi.b.studio →</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Article footer -->
+  <div class="article-footer">
+    <div class="article-footer-strip">
+      Brief 001 <span class="vm">·</span> Studio b<span class="vm">.</span> LMMI <span class="vm">·</span> 2026-05-05
+      <br>
+      Published by Benchmarks, by Studio b<span class="vm">.</span> LLC &nbsp;·&nbsp; lmmi<span class="vm">.</span>b<span class="vm">.</span>studio
+    </div>
+    <a href="/" class="article-footer-back">← Back to Studio b. LMMI</a>
+  </div>
+
+</div><!-- /article-wrap -->
+
+<div class="page-footer-strip">
+  <span>Studio b<span class="footer-vm">.</span> LMMI &nbsp;·&nbsp; Brief 001 &nbsp;·&nbsp; lmmi<span class="footer-vm">.</span>b<span class="footer-vm">.</span>studio &nbsp;·&nbsp; Open &nbsp;·&nbsp; Free</span>
+  <span>&copy; 2026 Benchmarks, by Studio b<span class="footer-vm">.</span> LLC</span>
+</div>
+
+</body>
+</html>

@@ -492,6 +492,83 @@
     }
     .footer-vm { color: var(--vermillion); }
 
+    /* ===== FEATURED BRIEF ===== */
+    .featured-brief {
+      padding: 5rem 4rem;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink-10);
+      background: var(--paper-dk);
+    }
+    .featured-brief-inner { max-width: 760px; }
+    .featured-brief-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--vermillion);
+      margin-bottom: 1.75rem;
+    }
+    .featured-brief-card {
+      border-top: 2px solid var(--ink);
+      padding-top: 2rem;
+    }
+    .featured-brief-card-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--ink-55);
+      margin-bottom: 1rem;
+    }
+    .featured-brief-card-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-style: normal;
+      font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 1rem;
+      font-variation-settings: "opsz" 144;
+    }
+    .featured-brief-card-sub {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1.15rem;
+      line-height: 1.5;
+      color: var(--forest);
+      margin-bottom: 1.5rem;
+      font-variation-settings: "opsz" 60;
+      max-width: 56ch;
+    }
+    .featured-brief-card-lede {
+      font-family: 'Source Serif 4', serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--ink-72);
+      max-width: 60ch;
+      margin-bottom: 2rem;
+    }
+    .featured-brief-card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--forest);
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--forest);
+      padding-bottom: 0.2rem;
+      transition: color 0.12s, border-color 0.12s;
+    }
+    .featured-brief-card-cta:hover { color: var(--vermillion); border-color: var(--vermillion); }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 980px) {
       .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -503,6 +580,7 @@
       .ticker-wrap { padding: 1rem 1.5rem; }
       .hero { padding: 4rem 1.5rem 3rem; }
       .why, .section-body, .subscribe, .archive { padding: 3.5rem 1.5rem; }
+      .featured-brief { padding: 3.5rem 1.5rem; }
       .hero-subscribe { padding: 1.5rem; }
       footer { grid-template-columns: 1fr; padding: 3rem 1.5rem 1.5rem; }
       .footer-strip { padding: 1rem 1.5rem 2rem; flex-direction: column; gap: 0.75rem; align-items: flex-start; }
@@ -523,6 +601,7 @@
     <a href="https://b.studio" class="nav-link">← b<span style="color:var(--vermillion)">.</span>studio</a>
     <a href="/methodology" class="nav-link">Methodology</a>
     <a href="#why" class="nav-link">Why</a>
+    <a href="#briefs" class="nav-link">Briefs</a>
     <a href="#archive" class="nav-link">Archive</a>
     <a href="https://invest.b.studio" class="nav-link nav-link-accent">Invest with us →</a>
   </nav>
@@ -581,14 +660,28 @@
   <div class="why-inner">
     <p class="why-eyebrow">§01 · Why we built this</p>
     <h2>The open index the segment didn't have.</h2>
-    <p>Cliffwater's CDLI-LMM, launched September 2024, is the institutional benchmark for the segment — borrowers averaging less than $40M EBITDA, BDC-universe, US-only, subscription-only. It's the right comparison for Studio b. LMMI to be measured against.</p>
-    <p>Studio b. LMMI takes a different access model on a partially-overlapping universe. <em>Methodology is open and published.</em> The headline quarterly print and weekly market commentary are free. Detailed institutional data — full constituent universe, historical CSV, DD-grade brief — will be subscription-priced for researchers, journalists, and allocators. Verified accredited LPs access the backtester through <a href="https://invest.b.studio">invest.b.studio</a>.</p>
+    <p>Existing institutional benchmarks for the segment are subscription-only, built from the observable BDC universe. They are rigorous. They do not model below it.</p>
+    <p>Studio b. LMMI takes a different approach. <em>Methodology is open and published.</em> The headline quarterly print and weekly market commentary are free. The open methodology is auditable decision logic — the same model that underwrites the fund's strategy. Verified accredited LPs test it directly through the backtester at <a href="https://invest.b.studio">invest.b.studio</a>. Detailed institutional data — full constituent universe, historical CSV, DD-grade brief — will be subscription-priced for researchers, journalists, and allocators.</p>
     <p>Coverage extends beyond the BDC universe. SBA 7(a) loan data captures sub-BDC origination volume. UK Companies House workout records anchor cross-jurisdictional recovery rates. The methodology paper, the universe construction rules, and the calibration scope are all on <a href="/methodology">lmmi.b.studio/methodology</a>.</p>
     <a href="/methodology" class="why-cta">Read the full methodology paper →</a>
   </div>
 </section>
 
 <!-- Subscribe section moved into hero aside (#subscribe anchor preserved there). -->
+
+<!-- Featured Brief -->
+<section class="featured-brief" id="briefs">
+  <div class="featured-brief-inner">
+    <p class="featured-brief-eyebrow">Briefs &nbsp;·&nbsp; New</p>
+    <div class="featured-brief-card">
+      <p class="featured-brief-card-kicker">Brief 001 &nbsp;·&nbsp; Inaugural &nbsp;·&nbsp; 2026-05-05</p>
+      <h2 class="featured-brief-card-title">Where the Alpha Lives in Lower Middle Market Credit</h2>
+      <p class="featured-brief-card-sub">A 30,000-foot view of what Studio b. LMMI is, what it measures, and what v0.1 actually delivers.</p>
+      <p class="featured-brief-card-lede">The gap between the SBA floor and the BDC universe is the most durable spread-premium corner of private credit in the country — and it has no public benchmark. This brief names the gap, describes the multi-anchor approach Studio b. takes to model it, and is honest about what v0.1 ships today versus the v0.x roadmap.</p>
+      <a href="/briefs/001-the-30000-ft-view" class="featured-brief-card-cta">Read brief 001 <span>→</span></a>
+    </div>
+  </div>
+</section>
 
 <!-- Archive -->
 <section class="archive" id="archive">
@@ -603,6 +696,7 @@
     <h4>Studio b<span class="footer-vm">.</span> LMMI</h4>
     <a href="#subscribe">Subscribe</a>
     <a href="#why">Why we built this</a>
+    <a href="#briefs">Briefs</a>
     <a href="#archive">Archive</a>
     <a href="/methodology">Methodology</a>
   </div>
