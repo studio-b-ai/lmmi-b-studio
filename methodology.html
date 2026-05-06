@@ -441,7 +441,7 @@
 <div class="version-banner">
   <span>Methodology</span>
   <span class="vb-sep">·</span>
-  <span class="vb-version">v0.4</span>
+  <span class="vb-version" data-claim="methodology_version">v0.4</span>
   <span class="vb-sep">·</span>
   <span>Last revised 2026-05-06</span>
   <span class="vb-sep">·</span>
@@ -527,7 +527,7 @@
 
     <p><strong>v0.2 change:</strong> The 80% senior-secured floor (v0.1 criterion) has been removed. No CDLI-LMM equivalent gate exists; the v0.1 floor excluded OBDC at 79.3% in Q4 2025 (0.7pp boundary effect), producing an approximately 485 bps artifact in the Q4 2025 asset-weighted spread. Removing the floor restores OBDC to the eligible universe for Q4 2025.</p>
 
-    <p><strong>Current universe (v0.2):</strong> 10 primary adapters — ARCC, GBDC, MAIN, PSEC, FSK, HTGC, PRSP, TCRD, BXSL, OBDC — covering approximately 85% of public BDC AUM by fair value. OBDE (merged into OBDC 2025-01-13) is retained as a deprecated historical adapter. Full universe expansion to 30+ BDCs is planned for v0.x. Adapters, mandate classifications, and source filing accession numbers are documented in the <code>wdli_mandate_prior_seed.csv</code> curation file.</p>
+    <p><strong>Current universe (v0.2):</strong> <span data-claim="bdc_universe_count">10</span> primary adapters — ARCC, GBDC, MAIN, PSEC, FSK, HTGC, PRSP, TCRD, BXSL, OBDC — covering approximately <span data-claim="bdc_universe_aum_coverage">85%</span> of public BDC AUM by fair value. OBDE (merged into OBDC 2025-01-13) is retained as a deprecated historical adapter. Full universe expansion to 30+ BDCs is planned for v0.x. Adapters, mandate classifications, and source filing accession numbers are documented in the <code>wdli_mandate_prior_seed.csv</code> curation file.</p>
 
     <p><strong>What the BDC anchor does not include:</strong> private BDCs, insurance-company-affiliated direct lenders, CLOs, separately managed accounts, or any fund not subject to SEC filing requirements. The BDC anchor represents the observable upper band of LMM direct lending — it is not a claim about total LMM credit activity.</p>
 
@@ -541,7 +541,7 @@
 
     <p><strong>Two published series.</strong> The SBA anchor publishes two series per quarter, mirroring the BDC anchor's structure: <em>asset-weighted</em> (each loan weighted by origination amount) and <em>equal-weighted</em> (each loan weighted equally, more stable across loan-size mix changes).</p>
 
-    <p><strong>Observation window: 2010-Q1 through current.</strong> The <code>implied_spread_bps</code> column is populated from 2010-Q1 onward. Pre-2010 rows have NULL <code>implied_spread_bps</code> per source-CSV limitation — FY2009 is ~89% populated; FY1992–FY2008 are 0–11% populated (structural SBA FOIA gap). See §02b-i for the rate imputation method that addresses the pre-2008 gap.</p>
+    <p><strong>Observation window: <span data-claim="sba_anchor_period_range">2010-Q1 through current</span>.</strong> The <code>implied_spread_bps</code> column is populated from 2010-Q1 onward. Pre-2010 rows have NULL <code>implied_spread_bps</code> per source-CSV limitation — FY2009 is ~89% populated; FY1992–FY2008 are 0–11% populated (structural SBA FOIA gap). See §02b-i for the rate imputation method that addresses the pre-2008 gap.</p>
 
     <p><strong>Implied spread benchmark.</strong> Computed as origination interest rate minus the WSJ US Prime Rate (FRED series <code>PRIME</code>) averaged over the calendar quarter of origination. Prime is used throughout the observation window (rather than switching to SOFR post-2018) to maintain a consistent benchmark series.</p>
 
@@ -578,7 +578,7 @@
 
     <p><strong>Size band filter.</strong> Companies House does not report EBITDA. The proxy for the £5–25M EBITDA-equivalent band is the maximum registered charge amount per company: companies with maximum charges between £2M and £50M GBP are classified as "size_filtered." Both "size_filtered" and "all_sizes" bands are published. 86% of companies have null charge amounts and are retained in "all_sizes" only.</p>
 
-    <p><strong>Sample coverage.</strong> 4,442 distinct UK companies with a confirmed insolvency event in the Companies House charges register, spanning 1986–2026. Annual vintage cohorts from 2018 onward have adequate sample sizes (n ≥ 10 per year) for calibration use. Pre-2018 cohorts are published but flagged as "small_sample" where n &lt; 10. LGD reference range: blended all_sizes recovery rate for 2018–2022 vintage cohorts falls within the UK Insolvency Service published range of 20–60 pence per pound.</p>
+    <p><strong>Sample coverage.</strong> <span data-claim="ch_insolvency_corpus">4,442</span> distinct UK companies with a confirmed insolvency event in the Companies House charges register, spanning 1986–2026. Annual vintage cohorts from 2018 onward have adequate sample sizes (n ≥ 10 per year) for calibration use. Pre-2018 cohorts are published but flagged as "small_sample" where n &lt; 10. LGD reference range: blended all_sizes recovery rate for 2018–2022 vintage cohorts falls within the UK Insolvency Service published range of 20–60 pence per pound.</p>
 
     <p><strong>Cross-jurisdictional disclosure.</strong> This anchor is UK-only. It is used as a Bayesian prior on LGD for the $5–25M modeled-middle segment. All published surfaces disclosing this anchor include: <em>"UK insolvency data; cross-jurisdictional calibration reference; not a US LMM observation."</em> Per-cohort N disclosed in the published artifact; any published chart citing cohorts with N &lt; 10 must include: "N &lt; 10; small sample."</p>
 
@@ -692,7 +692,7 @@
 
     <p><strong>Live observation: 2006–2025 (19 years).</strong> Based on dense BDC 10-K/10-Q coverage and SBA 7(a) FOIA microdata with credible chargeoff rates. This is the conservative floor and the only figure that should appear unqualified in any LP-facing tear sheet, fund deck, or public chart axis.</p>
 
-    <p><strong>Modeled extension: approximately 1992–2025 (~33 years).</strong> The live observation window plus a pre-2010 SBA-calibrated synthetic segment. The synthetic segment uses OLS regression of year-over-year LMM AUM growth on SBA charge-off rates, with the calibration sample covering 2022Q4–2025Q4 (n=9 quarterly observations, R²=0.477, slope −11.19). Calibration coefficients are persisted to <code>wdli.calibration_coefficients</code> with the git SHA at each run. The pre-2010 segment carries an explicit ±2σ proxy band — where σ equals the residual standard error of the overlap regression — and must be rendered visibly on any chart displaying pre-2010 data alongside live data.</p>
+    <p><strong>Modeled extension: approximately 1992–2025 (~33 years).</strong> The live observation window plus a pre-2010 SBA-calibrated synthetic segment. The synthetic segment uses OLS regression of year-over-year LMM AUM growth on SBA charge-off rates, with the calibration sample covering 2022Q4–2025Q4 (n=9 quarterly observations, R²=<span data-claim="calibration_r2">0.477</span>, slope −11.19). Calibration coefficients are persisted to <code>wdli.calibration_coefficients</code> with the git SHA at each run. The pre-2010 segment carries an explicit ±2σ proxy band — where σ equals the residual standard error of the overlap regression — and must be rendered visibly on any chart displaying pre-2010 data alongside live data.</p>
 
     <p>The 33-year modeled horizon may be referenced only alongside a footnote disclosing (a) that the pre-2010 segment is model-implied, not observed BDC AUM, and (b) that the calibration sample is n=9 quarterly observations. The required disclosure language for any public surface:</p>
 
@@ -710,7 +710,7 @@
 
     <p><strong>MD&amp;A back-test.</strong> Model-estimated portfolio EBITDA is compared against EBITDA disclosed in BDC 10-K/10-Q Management Discussion &amp; Analysis sections. Portfolio-weighted RMSE is computed using XBRL-tagged disclosures only (the more reliable of XBRL-tagged and regex-extracted data). Gate thresholds: RMSE below 15% on tagged disclosures → publish; 15–20% → trigger BLS QCEW sector data ingest for cross-check; 20% or above → trigger RMA/BizMiner industry financial data ingest. A publication blocked by RMSE does not proceed until the cascade ingest chip is reviewed.</p>
 
-    <p><strong>CDLI-LMM concordance.</strong> A manual fair-use spot-check of Studio b. LMMI LMM classifications against publicly-visible CDLI-LMM constituent disclosures on Cliffwater's public fact pages. No automated scrape is performed. Current concordance rate: 80% (4 of 5 sampled BDCs, point-in-time, May 2026). The gap is ARCC: the Studio b. LMMI classifies ARCC as <code>mixed</code> (partial LMM inclusion); CDLI-LMM includes ARCC as a full constituent given ARCC's scale. This is a known and documented divergence, not a defect. The v0.2 reclassifications (PSEC, TCRD, OBDE from lmm_pure → umm_pure; GBDC, HTGC from lmm_pure → mixed) are designed to improve long-term concordance by aligning with Cliffwater's portfolio-average EBITDA test.</p>
+    <p><strong>CDLI-LMM concordance.</strong> A manual fair-use spot-check of Studio b. LMMI LMM classifications against publicly-visible CDLI-LMM constituent disclosures on Cliffwater's public fact pages. No automated scrape is performed. Current concordance rate: <span data-claim="cdli_concordance_rate">80%</span> (4 of 5 sampled BDCs, point-in-time, May 2026). The gap is ARCC: the Studio b. LMMI classifies ARCC as <code>mixed</code> (partial LMM inclusion); CDLI-LMM includes ARCC as a full constituent given ARCC's scale. This is a known and documented divergence, not a defect. The v0.2 reclassifications (PSEC, TCRD, OBDE from lmm_pure → umm_pure; GBDC, HTGC from lmm_pure → mixed) are designed to improve long-term concordance by aligning with Cliffwater's portfolio-average EBITDA test.</p>
 
     <p><strong>Known uncertainty:</strong> Approximately 12% of holdings in the current universe fall within the borderline EBITDA range ($40–60M) where LMM/UMM classification is genuinely ambiguous. For these holdings, the ensemble returns a <code>p_lmm</code> in [0.3, 0.7]. If more than 20% of holdings are ambiguous in any quarter, a methodology committee review is triggered.</p>
   </section>
